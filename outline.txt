@@ -1,0 +1,18 @@
+[X] Fill out mock course cards
+    [X] Add information fields
+    [X] Add button with drop-down menu to change location of course
+[ ] Make Pages component folder
+    [ ] Add AddCoursePage
+[ ] Make the page to add a class
+    [ ] Create heading
+    [ ] Create form
+    [ ] Create submit button
+[ ] Route correctly to Add Class page
+    [ ] Import React Router
+    [ ] Attach route to add class button
+    [ ] Route back to main page after submission
+[ ] Send data to JSON object
+[ ] Update course collection
+
+
+[ ] Make API for app
