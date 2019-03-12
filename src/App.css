@@ -8,21 +8,27 @@
 }
 
 .addCourseIcon {
-  width: 50px;
-  height: 50px;
   position: fixed;
   bottom: 20px;
   right: 20px;
-  background: blue;
-  border-radius: 50%;
-  box-shadow: 0 3px 6px rgba(0,0,0,.20), 0 3px 6px rgba(0,0,0,.3);
-  transition: box-shadow 0.2s;
 }
 
 .addCourseIcon:hover {
   box-shadow: none;
+  cursor: pointer;
 }
 
-.addCourseIcon:hover {
-  cursor: pointer;
+.addCourseIcon a {
+  display: block;
+  width: 50px;
+  height: 50px;
+  background: navy;
+  background-image: url('./icons/add.svg');
+  background-repeat: none;
+  background-position: center;
+  background-size: 45px;
+  border-radius: 50%;
+  box-shadow: 0 3px 6px rgba(0,0,0,.20), 0 3px 6px rgba(0,0,0,.3);
+  transition: box-shadow 0.2s;
+  font-size: 0;
 }

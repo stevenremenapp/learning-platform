@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import Course from './components/Course/Course'
-import AddCourseIcon from './icons/add.svg';
+import { Link } from 'react-router-dom';
+import Course from './components/Course/Course';
 import './App.css';
 
 class App extends Component {
@@ -23,7 +23,9 @@ class App extends Component {
           <Course />
           <Course />
         </div>
-        <img src = { AddCourseIcon } className="addCourseIcon" alt="Button to add course." />
+        <div className="addCourseIcon">
+          <Link to="/addcourse">Add a Course</Link>
+        </div>
       </div>
     );
   }
