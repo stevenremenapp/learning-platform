@@ -3,14 +3,14 @@
     [X] Add button with drop-down menu to change location of course
 [X] Make Pages component folder
     [X] Add AddCoursePage
-[ ] Make the page to add a class
-    [ ] Create heading
-    [ ] Create form
-    [ ] Create submit button
-[ ] Route correctly to and away from Add Class page
+[X] Make the page to add a class
+    [X] Create heading
+    [X] Create form
+    [X] Create submit button
+[X] Route correctly to and away from Add Class page
     [X] Import React Router
     [X] Attach route to add class button
-    [ ] Add icon to route back to main page after submission (don't do this automatically because user may want to add more than one course)
+    [X] Add icon to route back to main page after submission (don't do this automatically because user may want to add more than one course)
 [ ] Send data to JSON object
 [ ] Update course collection
 

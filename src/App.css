@@ -13,11 +13,6 @@
   right: 20px;
 }
 
-.addCourseIcon:hover {
-  box-shadow: none;
-  cursor: pointer;
-}
-
 .addCourseIcon a {
   display: block;
   width: 50px;
@@ -31,4 +26,9 @@
   box-shadow: 0 3px 6px rgba(0,0,0,.20), 0 3px 6px rgba(0,0,0,.3);
   transition: box-shadow 0.2s;
   font-size: 0;
+}
+
+.addCourseIcon a:hover {
+  box-shadow: none;
+  cursor: pointer;
 }

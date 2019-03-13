@@ -1,9 +1,10 @@
 .courseCard {
     border: 2px solid black;
     background: paleturquoise;
-    margin: 20px;
+    margin: 20px auto;
     padding: 10px 20px 20px 20px;
     position: relative;
+    max-width: 900px;
 }
 
 .courseShelfChanger {

@@ -8,6 +8,7 @@ class Course extends React.Component {
                 <h3>Course Title</h3>
                 <p>Course Author</p>
                 <p>Course Description</p>
+                {/* <p>Link to course</p> */}
                 <p>Percentage complete:</p>
                 <p>Time Spent:</p>
                 <div className="courseShelfChanger">
