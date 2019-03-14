@@ -11,7 +11,12 @@
     [X] Import React Router
     [X] Attach route to add class button
     [X] Add icon to route back to main page after submission (don't do this automatically because user may want to add more than one course)
+[X] Add JSON course database
+[X] Filter and map to display courses in correct spot
+
 [ ] Send data to JSON object
+    [ ] body-parser?
+    [ ] validation?
 [ ] Update course collection
 
 
