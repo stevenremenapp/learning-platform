@@ -16,7 +16,7 @@ let courseDb = [
   {
     "title": "The Advanced Web Developer Bootcamp",
     "author": "Colt Steele",
-    "description": "Advanced full stack web dev2",
+    "description": "Advanced full stack web dev",
     "link": "https://www.udemy.com/the-advanced-web-developer-bootcamp/",
     "percentageComplete": 0,
     "timeSpent": "0 hours",
@@ -63,8 +63,6 @@ let courseDb = [
 class App extends Component {
 
   render() {
-
-    // let courses = courseDb.filter(course => course.shelf === "currentlyTaking");
 
     return (
       <div className="App">

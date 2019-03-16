@@ -8,7 +8,7 @@ class Course extends React.Component {
 
         return (
             <div className="courseCard">
-                <a href={link} rel="noopener noreferrer" target="_blank"><h3>{title}</h3></a>
+                <a href={link} rel="noopener noreferrer" target="_blank" className="titleLink"><h3>{title}</h3></a>
                 {/* {console.log({...info})} */}
                 <p>Author: {author}</p>
                 <p>Description: {description}</p>

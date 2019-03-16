@@ -14,6 +14,7 @@
 [X] Add JSON course database
 [X] Filter and map to display courses in correct spot
 
+[ ] Add express to project
 [ ] Send data to JSON object
     [ ] body-parser?
     [ ] validation?
