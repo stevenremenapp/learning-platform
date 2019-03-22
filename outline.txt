@@ -14,11 +14,21 @@
 [X] Add JSON course database
 [X] Filter and map to display courses in correct spot
 
-[ ] Add express to project
+[X] Add express to project
+
+[ ] Make API for app
+    [X] Create Postgres db via command line
+    [X] Populate database with data
+    [X] Install knex
+    [X] Open connection to database
+    [X] Connect to db and pull all courses back
+    [X] Set up '/' route to retrieve all courses
+    [ ] Set state of main page to hold all courses
+    [ ] Display courses by looping through state
+
+    [ ] Work on POST request to update course listing
+
+
 [ ] Send data to JSON object
     [ ] body-parser?
     [ ] validation?
-[ ] Update course collection
-
-
-[ ] Make API for app

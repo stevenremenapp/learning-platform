@@ -2,6 +2,11 @@ import React from 'react';
 import './Course.css';
 
 class Course extends React.Component {
+
+    onChange = (event) => {
+        console.log(event.target.value)
+    }
+
     render() {
 
         const { title, author, description, link, percentageComplete, timeSpent, shelf } = this.props;
@@ -16,7 +21,7 @@ class Course extends React.Component {
                 <p>Percentage complete: {percentageComplete}</p>
                 <p>Time Spent: {timeSpent}</p>
                 <div className="courseShelfChanger">
-                    <select value={shelf}>
+                    <select value={shelf} onChange={this.onChange}>
                         <option value="move" disabled>Move to...</option>
                         <option value="currentlyTaking">Currently Taking</option>
                         <option value="wantToTake">Want to Take</option>

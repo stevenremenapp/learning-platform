@@ -24,7 +24,7 @@ const db = knex({
 app.use(bodyParser.json());
 app.use(cors());
 
-app.get('/', (req, res) => {
+app.get('/api/v1/courses', (req, res) => {
     // res.json({ info: 'hello hello' });
     db('courses').select()
         .then((courses) => {
