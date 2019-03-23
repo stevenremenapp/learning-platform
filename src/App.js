@@ -3,64 +3,8 @@ import { Link } from 'react-router-dom';
 import Course from './components/Course/Course';
 import './App.css';
 
-// let courseDb = [
-//   {
-//     "title": "Web Developer Bootcamp",
-//     "author": "Colt Steele",
-//     "description": "Intro to full stack web dev",
-//     "link": "https://www.udemy.com/the-web-developer-bootcamp/",
-//     "percentageComplete": 62,
-//     "timeSpent": "14 hours",
-//     "shelf": "currentlyTaking"
-//   },
-//   {
-//     "title": "The Advanced Web Developer Bootcamp",
-//     "author": "Colt Steele",
-//     "description": "Advanced full stack web dev",
-//     "link": "https://www.udemy.com/the-advanced-web-developer-bootcamp/",
-//     "percentageComplete": 0,
-//     "timeSpent": "0 hours",
-//     "shelf": "wantToTake"
-//   },
-//   {
-//     "title": "JavaScript 30",
-//     "author": "Wes Bos",
-//     "description": "30 JS projects in 30 days",
-//     "link": "https://javascript30.com/",
-//     "percentageComplete": 40,
-//     "timeSpent": "8 hours",
-//     "shelf": "currentlyTaking"
-//   },
-//   {
-//     "title": "Practical JavaScript",
-//     "author": "Gordon Zhu",
-//     "description": "Build a strong JavaScript foundation for the web",
-//     "link": "https://watchandcode.com/p/practical-javascript",
-//     "percentageComplete": 30,
-//     "timeSpent": "2 hours",
-//     "shelf": "currentlyTaking"
-//   },
-//   {
-//     "title": "The Complete Web Developer in 2019: Zero to Mastery",
-//     "author": "Andrei Neagoie",
-//     "description": "Learn to code and become a web developer in 2019 with HTML, CSS, Javascript, React, Node.js, Machine Learning & more!",
-//     "link": "https://www.udemy.com/the-complete-web-developer-zero-to-mastery/",
-//     "percentageComplete": 55,
-//     "timeSpent": "18 hours",
-//     "shelf": "currentlyTaking"
-//   },
-//   {
-//     "title": "Udacity Front End Nanodegree",
-//     "author": "Udacity",
-//     "description": "In the Front End Developer Nanodegree program, you will complete five projects and build a resume-worthy portfolio.",
-//     "link": "https://www.udacity.com/course/front-end-web-developer-nanodegree--nd001",
-//     "percentageComplete": 100,
-//     "timeSpent": "124 hours",
-//     "shelf": "completed"
-//   }
-// ]
-
 const courseAPI = 'http://localhost:3000/api/v1/courses';
+const editShelfAPI = 'http://localhost:3000/editshelf';
 
 class App extends Component {
 
@@ -74,7 +18,37 @@ class App extends Component {
   componentDidMount() {
     fetch(courseAPI)
       .then(response => response.json())
-      .then(response => this.setState({ courses: response }, () => console.log(response)));
+      .then(response => {
+        console.log(response);
+        this.setState({ courses: response });
+  })
+}
+
+  updateCourseLocation = (course, shelf) => {
+    console.log(course);
+    console.log(shelf);
+    // Post change to backend
+    fetch(editShelfAPI, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        id: course,
+        shelf: shelf
+      })
+    })
+      // Get response from backend
+      .then(response => response.json())
+      // Update the state on the frontend by copying the state, mutating that array, and setting that updated array as state
+      .then(response => {
+        console.log(response);
+        let updatedState = [...this.state.courses];
+        let indexOfItemToChange = updatedState.findIndex(course => course.id === response[0].id);
+        // {
+        //   console.log(`CID: ${course.id} & RID: ${response[0].id}`);
+        // });
+        updatedState[indexOfItemToChange] = response[0];
+        this.setState({ courses: updatedState });
+      });
   }
 
   render() {
@@ -84,31 +58,34 @@ class App extends Component {
     return (
       <div className="App">
         <div className="shelf">
-          <h2>Currently Taking:</h2> {courses.filter(course => course.shelf === "currentlyTaking").map((course, index) => {
+          <h2>Currently Taking:</h2> {courses.filter(course => course.shelf === "currentlyTaking").map((course) => {
             return (
               <Course
-                key={`currentlyTaking-course-${index}`}
+                key={course.id}
                 {...course}
+                updateCourseLocation={this.updateCourseLocation}
               />
             )
           })}
         </div>
         <div className="shelf">
-          <h2>Want to Take:</h2> {courses.filter(course => course.shelf === "wantToTake").map((course, index) => {
+          <h2>Want to Take:</h2> {courses.filter(course => course.shelf === "wantToTake").map((course) => {
             return (
               <Course
-                key={`wantToTake-course-${index}`}
+                key={course.id}
                 {...course}
+                updateCourseLocation={this.updateCourseLocation}
               />
             )
           })}
         </div>
         <div className="shelf">
-          <h2>Completed:</h2> {courses.filter(course => course.shelf === "completed").map((course, index) => {
+          <h2>Completed:</h2> {courses.filter(course => course.shelf === "completed").map((course) => {
             return (
               <Course
-                key={`completed-course-${index}`}
+                key={course.id}
                 {...course}
+                updateCourseLocation={this.updateCourseLocation}
               />
             )
           })}

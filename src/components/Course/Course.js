@@ -9,7 +9,7 @@ class Course extends React.Component {
 
     render() {
 
-        const { title, author, description, link, percentageComplete, timeSpent, shelf } = this.props;
+        const { title, author, id, description, link, percentageComplete, timeSpent, shelf, updateCourseLocation } = this.props;
 
         return (
             <div className="courseCard">
@@ -21,7 +21,7 @@ class Course extends React.Component {
                 <p>Percentage complete: {percentageComplete}</p>
                 <p>Time Spent: {timeSpent}</p>
                 <div className="courseShelfChanger">
-                    <select value={shelf} onChange={this.onChange}>
+                    <select value={shelf} onChange={(event) => updateCourseLocation(id, event.target.value)}>
                         <option value="move" disabled>Move to...</option>
                         <option value="currentlyTaking">Currently Taking</option>
                         <option value="wantToTake">Want to Take</option>
