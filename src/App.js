@@ -11,7 +11,8 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      courses: [],
+      isLoaded: false,
+      courses: []
     }
   }
 
@@ -19,8 +20,13 @@ class App extends Component {
     fetch(courseAPI)
       .then(response => response.json())
       .then(response => {
+        console.log(response[3].title);
         console.log(response);
-        this.setState({ courses: response });
+        console.log(response[3].timeSpent);
+        this.setState({
+          courses: response,
+          isLoaded: true
+        });
   })
 }
 
@@ -53,48 +59,52 @@ class App extends Component {
 
   render() {
 
-    const { courses } = this.state;
+    const { isLoaded, courses } = this.state;
 
-    return (
-      <div className="App">
-        <div className="shelf">
-          <h2>Currently Taking:</h2> {courses.filter(course => course.shelf === "currentlyTaking").map((course) => {
-            return (
-              <Course
-                key={course.id}
-                {...course}
-                updateCourseLocation={this.updateCourseLocation}
-              />
-            )
-          })}
-        </div>
-        <div className="shelf">
-          <h2>Want to Take:</h2> {courses.filter(course => course.shelf === "wantToTake").map((course) => {
-            return (
-              <Course
-                key={course.id}
-                {...course}
-                updateCourseLocation={this.updateCourseLocation}
-              />
-            )
-          })}
-        </div>
-        <div className="shelf">
-          <h2>Completed:</h2> {courses.filter(course => course.shelf === "completed").map((course) => {
-            return (
-              <Course
-                key={course.id}
-                {...course}
-                updateCourseLocation={this.updateCourseLocation}
-              />
-            )
-          })}
-        </div>
-        <div className="addCourseIcon">
-          <Link to="/addcourse">Add a Course</Link>
-        </div>
-      </div>
-    );
+    if (!isLoaded) {
+      return (<h1>Loading...</h1>);
+    } else {
+        return (
+          <div className="App">
+            <div className="shelf">
+              <h2>Currently Taking:</h2> {courses.filter(course => course.shelf === "currentlyTaking").map((course) => {
+                return (
+                  <Course
+                    key={course.id}
+                    {...course}
+                    updateCourseLocation={this.updateCourseLocation}
+                  />
+                )
+              })}
+            </div>
+            <div className="shelf">
+              <h2>Want to Take:</h2> {courses.filter(course => course.shelf === "wantToTake").map((course) => {
+                return (
+                  <Course
+                    key={course.id}
+                    {...course}
+                    updateCourseLocation={this.updateCourseLocation}
+                  />
+                )
+              })}
+            </div>
+            <div className="shelf">
+              <h2>Completed:</h2> {courses.filter(course => course.shelf === "completed").map((course) => {
+                return (
+                  <Course
+                    key={course.id}
+                    {...course}
+                    updateCourseLocation={this.updateCourseLocation}
+                  />
+                )
+              })}
+            </div>
+            <div className="addCourseIcon">
+              <Link to="/addcourse">Add a Course</Link>
+            </div>
+          </div>
+        );
+      }
   }
 }
 

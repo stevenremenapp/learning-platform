@@ -3,23 +3,18 @@ import './Course.css';
 
 class Course extends React.Component {
 
-    onChange = (event) => {
-        console.log(event.target.value)
-    }
-
     render() {
 
-        const { title, author, id, description, link, percentageComplete, timeSpent, shelf, updateCourseLocation } = this.props;
-
+        const { title, author, id, description, link, percentagecomplete, timespent, shelf, notes, updateCourseLocation } = this.props;
         return (
             <div className="courseCard">
                 <a href={link} rel="noopener noreferrer" target="_blank" className="titleLink"><h3>{title}</h3></a>
-                {/* {console.log({...info})} */}
                 <p>Author: {author}</p>
                 <p>Description: {description}</p>
                 {/* <p>Link to course</p> */}
-                <p>Percentage complete: {percentageComplete}</p>
-                <p>Time Spent: {timeSpent}</p>
+                <p>Percentage complete: {percentagecomplete}</p>
+                <p>Time Spent: {timespent}</p>
+                <p>Notes: {(notes === null ? `No notes here!` : notes)}</p>
                 <div className="courseShelfChanger">
                     <select value={shelf} onChange={(event) => updateCourseLocation(id, event.target.value)}>
                         <option value="move" disabled>Move to...</option>
