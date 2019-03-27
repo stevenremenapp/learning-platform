@@ -37,7 +37,7 @@ app.get('/api/v1/courses', (req, res) => {
     returnAllCourses(req, res);
 });
 
-app.post('/editshelf', (req, res) => {
+app.post('/api/v1/editshelf', (req, res) => {
     console.log(req.body);
     // Update the item in the course database
     db('courses').select()
@@ -51,6 +51,26 @@ app.post('/editshelf', (req, res) => {
             console.log(`shelf: ${course[0].shelf}`);
             res.json(course);
         });
+})
+
+app.post('/api/v1/addcourse', (req, res) => {
+    console.log(req.body);
+    db('courses')
+        .insert({
+            // id: DEFAULT,
+            title: req.body.title,
+            author: req.body.author,
+            description: req.body.description,
+            link: req.body.link,
+            percentagecomplete: req.body.percentagecomplete,
+            timespent: req.body.timespent,
+            shelf: req.body.shelf,
+            notes: req.body.notes
+        })
+        .returning('*')
+        .then(course => {
+            res.status(201).json(course);
+        })
 })
 
 app.listen(port, () => {

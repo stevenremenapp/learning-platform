@@ -4,7 +4,7 @@ import Course from './components/Course/Course';
 import './App.css';
 
 const courseAPI = 'http://localhost:3000/api/v1/courses';
-const editShelfAPI = 'http://localhost:3000/editshelf';
+const editShelfAPI = 'http://localhost:3000/api/v1/editshelf';
 
 class App extends Component {
 
