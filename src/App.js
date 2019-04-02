@@ -17,12 +17,10 @@ class App extends Component {
   }
 
   componentDidMount() {
+    document.title = 'Learning Platform';
     fetch(courseAPI)
       .then(response => response.json())
       .then(response => {
-        console.log(response[3].title);
-        console.log(response);
-        console.log(response[3].timeSpent);
         this.setState({
           courses: response,
           isLoaded: true

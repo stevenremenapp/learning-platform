@@ -51,30 +51,6 @@ button:hover {
     cursor: pointer;
 }
 
-.success {
-    color: green;
-    border: 2px solid green;
-    text-align: center;
-    margin: 10px auto 0 auto;
-    max-width: 940px;
-}
-
-.success.showSubmitNotification {
-    animation: showNotification 5s linear;
-}
-
-@keyframes showNotification {
-    0% {
-        opacity: 0;
-    }
-    50% {
-        opacity: 1;
-    }
-    100% {
-        opacity: 0;
-    }
-}
-
 .backToHomeIcon {
     position: fixed;
     bottom: 20px;

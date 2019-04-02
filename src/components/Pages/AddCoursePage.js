@@ -1,10 +1,13 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import './AddCoursePage.css';
+import CloseIcon from '@material-ui/icons/Close';
+import IconButton from '@material-ui/core/IconButton';
+import Snackbar from '@material-ui/core/Snackbar';
 
 const addCourseAPI = 'http://localhost:3000/api/v1/addcourse';
 
-const initialState = {
+const initialFormState = {
     title: '',
     link: '',
     author: '',
@@ -13,73 +16,115 @@ const initialState = {
     percentagecomplete: null,
     timespent: null,
     notes: '',
-    showSuccessNotification: false,
-    showFailureNotification: false
+}
+
+let currentFormState = {
+    title: '',
+    link: '',
+    author: '',
+    shelf: '',
+    description: '',
+    percentagecomplete: null,
+    timespent: null,
+    notes: '',
 }
 
 class AddCoursePage extends React.Component {
 
     constructor(props) {
         super(props);
-        this.state = initialState;
-        
-        // {
-        //     title: '',
-        //     link: '',
-        //     author: '',
-        //     shelf: '',
-        //     description: '',
-        //     percentagecomplete: null,
-        //     timespent: null,
-        //     notes: ''
-        // }
+        this.state = {
+            formState: initialFormState,
+            snackbarOpen: false,
+            snackbarMessage: ''
+        }
+    }
+
+    componentDidMount() {
+        document.title = 'Add a Course';
     }
 
     onFormDataChange = (event) => {
-        console.log(`Name: ${event.target.name} Value: ${event.target.value}`);
-        this.setState({ [event.target.name]: event.target.value });
+        // console.log(`Name: ${event.target.name} Value: ${event.target.value}`);
+        currentFormState[event.target.name] = event.target.value;
+        // console.log(currentFormState);
+        this.setState({ formState: currentFormState });
     }
 
     onFormSubmit = (event) => {
+
+        const {title, link, author, shelf, description, percentagecomplete, timespent, notes } = this.state.formState;
+
         event.preventDefault();
         fetch(addCourseAPI, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
-                title: this.state.title,
-                link: this.state.link,
-                author: this.state.author,
-                shelf: this.state.shelf,
-                description: this.state.description,
-                percentagecomplete: this.state.percentagecomplete,
-                timespent: this.state.timespent,
-                notes: this.state.notes
+                title: title,
+                link: link,
+                author: author,
+                shelf: shelf,
+                description: description,
+                percentagecomplete: percentagecomplete,
+                timespent: timespent,
+                notes: notes
             })
         })
-        .then(response => response.json())
-        .then((response) => {
+        .then(response => {
+            this.openSnackbar(response);
             this.resetForm();
-            console.log(response);
         })
+    }
+
+    openSnackbar = (response) => {
+        if (response.status === 201) {
+            this.setState({
+                snackbarOpen: true,
+                snackbarMessage: 'Class successfully added!',
+            });
+        } else {
+            this.setState({
+                snackbarOpen: true,
+                snackbarMessage: 'Class not submitted, please try again.',
+            });
+        }
+    }
+
+    closeSnackbar = (event, reason) => {
+        if (reason === 'clickaway') {
+            return;
+        }
+        this.setState({ snackbarOpen: false });
     }
 
     resetForm = () => {
-        this.setState(initialState);
+        this.setState({ formState: initialFormState });
         document.getElementById('addCourseForm').reset();
     }
 
-    showSuccessNotification= () => {
-        this.setState({ showNotification: true });
-
-    }
-
     render() {
+
         return (
             <div>
                 <h1>Add a Course</h1>
-                <div className="success">
-                    <p>Course successfully added!</p>
-                </div>
+                <Snackbar
+                    anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+                    message={<span id="message-id">{this.state.snackbarMessage}</span>}
+                    autoHideDuration={3000}
+                    onClose={this.closeSnackbar}
+                    open={this.state.snackbarOpen}
+                    ContentProps={{ 'aria-describedby': 'message-id' }}
+                    action={[
+                        <IconButton
+                            key="close"
+                            aria-label="Close"
+                            color="inherit"
+                            onClick={this.closeSnackbar}
+                        >
+                            <CloseIcon />
+                        </IconButton>
+                    ]}
+                />
                 <div className="addCourseForm">
                     <form onSubmit={this.onFormSubmit} id="addCourseForm">
                         <div>
