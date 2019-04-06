@@ -1,6 +1,8 @@
 const express = require('express');
-const bodyParser = require('body-parser');
 const cors = require('cors');
+const bodyParser = require('body-parser');
+const { body, validationResult } = require('express-validator/check');
+const { sanitizeBody } = require('express-validator/filter');
 const knex = require('knex');
 require('dotenv').config();
 
@@ -25,15 +27,6 @@ app.use(bodyParser.json());
 app.use(cors());
 
 app.get('/api/v1/courses', (req, res) => {
-    // res.json({ info: 'hello hello' });
-    // db('courses').select()
-    //     .then(courses => {
-    //         res.status(200).json(courses);
-    //     })
-    //     .catch(error => {
-    //         res.status(500).json({ error });
-    //     });
-    // res.send(db.courses);
     returnAllCourses(req, res);
 });
 
@@ -53,7 +46,25 @@ app.post('/api/v1/editshelf', (req, res) => {
         });
 })
 
-app.post('/api/v1/addcourse', (req, res) => {
+app.post('/api/v1/addcourse', [
+    // Validate and sanitize with express-validator
+    body('title').isLength({ max: 10 }).withMessage('Title must be 200 characters or less.'),
+    body('author').isLength({ max: 10 }).withMessage('Author must be 200 characters or less.'),
+    body('description').optional({ checkFalsy: true }).isLength({ max: 1000 }).withMessage('Description must be 1,000 characters or less.'),
+    body('link').optional({ checkFalsy: true }).isURL().withMessage('A valid URL must be entered, for example: https://www.udemy.com'),
+    body('percentagecomplete').isInt({ gt: -0.01, lt: 100 }).withMessage("Please enter a number between 0 and 100 for the percentage of class you've completed."),
+    body('timespent').isInt({ gt: -0.01 }).withMessage("Please enter a number zero or greater for the time you've spent on this class."),
+    body('notes').optional({ checkFalsy: true }).isLength({ max: 10000 }).withMessage('Notes field must be 10,000 characters or less.')
+], (req, res) => {
+
+    // Find errors and place in object
+
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        return res.status(422).json({ errors: errors.array() });
+    }
+
+    // Insert into database
     console.log(req.body);
     db('courses')
         .insert({

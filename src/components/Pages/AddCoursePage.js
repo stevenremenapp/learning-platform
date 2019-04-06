@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import './AddCoursePage.css';
+import Errors from '../Errors/Errors.js'
 import CloseIcon from '@material-ui/icons/Close';
 import IconButton from '@material-ui/core/IconButton';
 import Snackbar from '@material-ui/core/Snackbar';
@@ -36,7 +37,8 @@ class AddCoursePage extends React.Component {
         this.state = {
             formState: initialFormState,
             snackbarOpen: false,
-            snackbarMessage: ''
+            snackbarMessage: '',
+            postErrors: []
         }
     }
 
@@ -71,23 +73,40 @@ class AddCoursePage extends React.Component {
             })
         })
         .then(response => {
-            this.openSnackbar(response);
-            this.resetForm();
-        })
+            response.json().then(json => {
+                window.scrollTo(0,0);
+                console.log(response.status);
+                this.handlePostResponse(response, json);
+            })
+        })             
     }
 
-    openSnackbar = (response) => {
+    handlePostResponse = (response, json) => {
         if (response.status === 201) {
-            this.setState({
-                snackbarOpen: true,
-                snackbarMessage: 'Class successfully added!',
-            });
+            this.postSuccess();
         } else {
-            this.setState({
-                snackbarOpen: true,
-                snackbarMessage: 'Class not submitted, please try again.',
-            });
+            let errors = json.errors;
+            this.postError(errors);
         }
+    }
+
+    postSuccess = () => {
+        this.setState({ 
+            formState: initialFormState,
+            snackbarOpen: true,
+            snackbarMessage: 'Class successfully added!',
+            postErrors: []
+        });
+        document.getElementById('addCourseForm').reset();
+    }
+
+    postError = (errors) => {
+        console.log(errors);
+        this.setState({
+            postErrors: errors,
+            snackbarOpen: true,
+            snackbarMessage: 'Class not submitted, please try again.',
+        });
     }
 
     closeSnackbar = (event, reason) => {
@@ -97,16 +116,13 @@ class AddCoursePage extends React.Component {
         this.setState({ snackbarOpen: false });
     }
 
-    resetForm = () => {
-        this.setState({ formState: initialFormState });
-        document.getElementById('addCourseForm').reset();
-    }
-
     render() {
 
         return (
             <div>
                 <h1>Add a Course</h1>
+                {/* Handle Error Display */}
+                { this.state.postErrors.length >= 1 ? <Errors errors={this.state.postErrors} /> : null}
                 <Snackbar
                     anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
                     message={<span id="message-id">{this.state.snackbarMessage}</span>}
@@ -129,15 +145,15 @@ class AddCoursePage extends React.Component {
                     <form onSubmit={this.onFormSubmit} id="addCourseForm">
                         <div>
                             <label htmlFor="title">Title:* </label>
-                            <input onChange={this.onFormDataChange} type="text" id="title" name="title" placeholder="Enter course title here" required />
+                            <input onChange={this.onFormDataChange} type="text" id="title" name="title" minLength="0" maxLength="200" placeholder="Enter course title here" required />
                         </div>
                         <div>
                             <label htmlFor="link">Link to course: </label>
-                            <input onChange={this.onFormDataChange} type="link" id="link" name="link" placeholder="Enter link to course here" />
+                            <input onChange={this.onFormDataChange} type="URL" id="link" name="link" minLength="0" maxLength="500" placeholder="Enter link to course here" />
                         </div>
                         <div>
                             <label htmlFor="author">Author:* </label>
-                            <input onChange={this.onFormDataChange} type="text" id="author" name="author" placeholder="Enter course author here" required />
+                            <input onChange={this.onFormDataChange} type="text" id="author" name="author" minLength="0" maxLength="200" placeholder="Enter course author here" required />
                         </div>
                         <div>
                             <label htmlFor="shelf">Shelf:* </label>
@@ -152,7 +168,7 @@ class AddCoursePage extends React.Component {
 
                         <div>
                             <label htmlFor="description">Description: </label>
-                            <textarea onChange={this.onFormDataChange} id="description" name="description" placeholder="Enter course description here"></textarea>
+                            <textarea onChange={this.onFormDataChange} id="description" name="description" minLength="0" maxLength="1000" placeholder="Enter course description here"></textarea>
                         </div>
                         <div>
                             <label htmlFor="percentagecomplete">Percentage Complete:* </label>
@@ -164,7 +180,7 @@ class AddCoursePage extends React.Component {
                         </div>
                         <div>
                             <label htmlFor="notes">Notes: </label>
-                            <textarea onChange={this.onFormDataChange} id="notes" name="notes" placeholder="Enter course notes here"></textarea>
+                            <textarea onChange={this.onFormDataChange} id="notes" name="notes" minLength="0" maxLength="10000" placeholder="Enter course notes here"></textarea>
                         </div>
                         <div className="submitCourse">
                             <button type="submit">Add course!</button>
