@@ -12,7 +12,7 @@ const initialFormState = {
     title: '',
     link: '',
     author: '',
-    shelf: '',
+    shelf: 'currentlyTaking',
     description: '',
     percentagecomplete: null,
     timespent: null,
@@ -23,7 +23,7 @@ let currentFormState = {
     title: '',
     link: '',
     author: '',
-    shelf: '',
+    shelf: 'currentlyTaking',
     description: '',
     percentagecomplete: null,
     timespent: null,
@@ -157,7 +157,7 @@ class AddCoursePage extends React.Component {
                         </div>
                         <div>
                             <label htmlFor="shelf">Shelf:* </label>
-                            <select onChange={this.onFormDataChange} type="text" id="shelf" name="shelf" required >
+                            <select onChange={this.onFormDataChange} value={this.state.formState.shelf} id="shelf" name="shelf" required >
                                 <option value="Choose the shelf for this course" disabled>Choose the shelf for this course</option>
                                 <option value="currentlyTaking">Currently Taking</option>
                                 <option value="wantToTake">Want to Take</option>

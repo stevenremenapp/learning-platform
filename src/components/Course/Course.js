@@ -11,18 +11,23 @@ import './Course.css';
 
 class Course extends React.Component {
 
+    htmlDecode = (input) => {
+        let textDisplayed = new DOMParser().parseFromString(input, "text/html");
+        return textDisplayed.documentElement.textContent;
+    }
+
     render() {
 
         const { title, author, id, description, link, percentagecomplete, timespent, shelf, notes, updateCourseLocation } = this.props;
         return (
             <div className="courseCard">
-                <a href={link} rel="noopener noreferrer" target="_blank" className="titleLink"><h3>{title}</h3></a>
-                <p>Author: {author}</p>
-                <p>Description: {description}</p>
+                <a href={this.htmlDecode(link)} rel="noopener noreferrer" target="_blank" className="titleLink"><h3>{this.htmlDecode(title)}</h3></a>
+                <p>Author: {this.htmlDecode(author)}</p>
+                <p>Description: {this.htmlDecode(description)}</p>
                 {/* <p>Link to course</p> */}
                 <p>Percentage complete: {percentagecomplete}</p>
                 <p>Time Spent: {timespent}</p>
-                <p>Notes: {(notes === null ? `No notes here!` : notes)}</p>
+                <p>Notes: {(notes === null ? `No notes here!` : this.htmlDecode(notes))}</p>
                 <div className="courseShelfChanger">
                     <select value={shelf} onChange={(event) => updateCourseLocation(id, event.target.value)}>
                         <option value="move" disabled>Move to...</option>

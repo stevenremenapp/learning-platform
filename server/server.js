@@ -49,12 +49,23 @@ app.post('/api/v1/editshelf', (req, res) => {
 app.post('/api/v1/addcourse', [
     // Validate and sanitize with express-validator
     body('title').isLength({ max: 10 }).withMessage('Title must be 200 characters or less.'),
+    body('title').not().isEmpty().withMessage('Please enter a title.'),
+    body('title').trim().escape(),
     body('author').isLength({ max: 10 }).withMessage('Author must be 200 characters or less.'),
+    body('author').not().isEmpty().withMessage('Please enter an author.'),
+    body('author').trim().escape(),
     body('description').optional({ checkFalsy: true }).isLength({ max: 1000 }).withMessage('Description must be 1,000 characters or less.'),
+    body('description').trim().escape(),
     body('link').optional({ checkFalsy: true }).isURL().withMessage('A valid URL must be entered, for example: https://www.udemy.com'),
+    body('link').trim().escape(),
     body('percentagecomplete').isInt({ gt: -0.01, lt: 100 }).withMessage("Please enter a number between 0 and 100 for the percentage of class you've completed."),
+    body('percentagecomplete').not().isEmpty().withMessage("Please enter the percentage of the course you've completed."),
+    body('percentagecomplete').trim(),
     body('timespent').isInt({ gt: -0.01 }).withMessage("Please enter a number zero or greater for the time you've spent on this class."),
-    body('notes').optional({ checkFalsy: true }).isLength({ max: 10000 }).withMessage('Notes field must be 10,000 characters or less.')
+    body('timespent').not().isEmpty().withMessage("Please enter the time you've spent on this course."),
+    body('timespent').trim(),
+    body('notes').optional({ checkFalsy: true }).isLength({ max: 10000 }).withMessage('Notes field must be 10,000 characters or less.'),
+    body('notes').trim().escape()
 ], (req, res) => {
 
     // Find errors and place in object
