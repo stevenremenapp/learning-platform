@@ -6,7 +6,7 @@ import CloseIcon from '@material-ui/icons/Close';
 import IconButton from '@material-ui/core/IconButton';
 import Snackbar from '@material-ui/core/Snackbar';
 
-const addCourseAPI = 'http://localhost:3000/api/v1/addcourse';
+const addCourseAPI = 'http://localhost:5432/api/v1/addcourse';
 
 const initialFormState = {
     title: '',

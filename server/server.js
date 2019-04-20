@@ -2,20 +2,20 @@ const express = require('express');
 const cors = require('cors');
 const bodyParser = require('body-parser');
 const { body, validationResult } = require('express-validator/check');
-const { sanitizeBody } = require('express-validator/filter');
 const knex = require('knex');
 require('dotenv').config();
 
 const app = express();
-const port = 3000;
+const path = require('path');
+const port = process.env.PORT;
 
 const db = knex({
     client: 'pg',
     connection: {
-        host: '127.0.0.1',
-        user: 'postgres',
+        host: process.env.DB_HOST,
+        user: process.env.DB_USER,
         password: process.env.DB_PASS,
-        database: 'learning'
+        database: process.env.DB
     }
 });
 
@@ -25,6 +25,7 @@ const db = knex({
 
 app.use(bodyParser.json());
 app.use(cors());
+app.use(express.static(`${__dirname}/../build`));
 
 app.get('/api/v1/courses', (req, res) => {
     returnAllCourses(req, res);
@@ -93,6 +94,10 @@ app.post('/api/v1/addcourse', [
         .then(course => {
             res.status(201).json(course);
         })
+});
+
+app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, '../build/index.html'));
 })
 
 app.listen(port, () => {
