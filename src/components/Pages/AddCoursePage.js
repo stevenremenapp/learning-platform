@@ -5,8 +5,9 @@ import Errors from '../Errors/Errors.js'
 import CloseIcon from '@material-ui/icons/Close';
 import IconButton from '@material-ui/core/IconButton';
 import Snackbar from '@material-ui/core/Snackbar';
+require('dotenv').load();
 
-const addCourseAPI = 'http://localhost:5432/api/v1/addcourse';
+const addCourseAPI = process.env.REACT_APP_ADD_COURSE_API;
 
 const initialFormState = {
     title: '',

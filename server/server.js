@@ -3,11 +3,11 @@ const cors = require('cors');
 const bodyParser = require('body-parser');
 const { body, validationResult } = require('express-validator/check');
 const knex = require('knex');
-require('dotenv').config();
+require('dotenv').config({path: '../.env'});
 
 const app = express();
 const path = require('path');
-const port = process.env.PORT;
+const port = process.env.SERVER_PORT;
 
 const db = knex({
     client: 'pg',
@@ -15,7 +15,7 @@ const db = knex({
         host: process.env.DB_HOST,
         user: process.env.DB_USER,
         password: process.env.DB_PASS,
-        database: process.env.DB
+        database: process.env.DB_NAME
     }
 });
 
@@ -96,9 +96,9 @@ app.post('/api/v1/addcourse', [
         })
 });
 
-app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, '../build/index.html'));
-})
+// app.get('*', (req, res) => {
+//     res.sendFile(path.join(__dirname, '../build/index.html'));
+// })
 
 app.listen(port, () => {
     console.log(`App running on ${port}`);

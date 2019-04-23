@@ -2,9 +2,11 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import Course from './components/Course/Course';
 import './App.css';
+require('dotenv').load();
 
-const courseAPI = 'http://localhost:3000/api/v1/courses';
-const editShelfAPI = 'http://localhost:3000/api/v1/editshelf';
+const courseAPI = process.env.REACT_APP_COURSE_API;
+console.log(courseAPI);
+const editShelfAPI = process.env.REACT_APP_EDIT_COURSE_API;
 
 class App extends Component {
 
