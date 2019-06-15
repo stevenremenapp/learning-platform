@@ -7,7 +7,10 @@ require('dotenv').config({path: '../.env'});
 
 const app = express();
 const path = require('path');
-const port = process.env.SERVER_PORT;
+
+// const port = process.env.SERVER_PORT;
+//for heroku
+const port = process.env.PORT;
 
 const db = knex({
     client: 'pg',
