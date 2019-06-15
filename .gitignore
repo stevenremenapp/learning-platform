@@ -21,6 +21,7 @@
 .env
 /server/.env
 keys
+seth_hack_cors.html
 
 npm-debug.log*
 yarn-debug.log*
