@@ -101,7 +101,9 @@ app.post('/api/v1/addcourse', [
 //     res.sendFile(path.join(__dirname, '../build/index.html'));
 // })
 
-app.listen(port, () => {
+
+// || 5000 added for heroku
+app.listen(port || 5000, () => {
     console.log(`App running on ${port}`);
 });
 
