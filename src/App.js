@@ -99,7 +99,7 @@ class App extends Component {
                 )
               })}
             </div>
-            <div className="addCourseIcon">
+            <div className="addCourseIcon" title="Add a Course">
               <Link to="/addcourse">Add a Course</Link>
             </div>
           </div>
