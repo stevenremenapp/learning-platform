@@ -13,16 +13,22 @@ class Course extends React.Component {
 
     constructor(props) {
         super(props);
+
         const { title, author, description, link, percentagecomplete, timespent, notes } = this.props;
-        this.state = {
-            editModeIsOn: false,
+        const initialEditState = {
             title: title,
             author: author,
             description: description,
             link: link,
             percentagecomplete: percentagecomplete,
             timespent: timespent,
-            notes: notes,
+            notes: notes
+        }
+
+        this.state = {
+            editModeIsOn: false,
+            editState: initialEditState,
+            initialState: initialEditState
         }
     }
 
@@ -35,12 +41,35 @@ class Course extends React.Component {
         this.setState( state => ({editModeIsOn: !state.editModeIsOn}));
     }
 
+    onEditFormChange = (event) => {
+
+        const { title, author, description, link, percentagecomplete, timespent, notes } = this.state.editState;
+
+        let currentEditState = {
+            title: title,
+            author: author,
+            description: description,
+            link: link,
+            percentagecomplete: percentagecomplete,
+            timespent: timespent,
+            notes: notes
+        }
+
+        currentEditState[event.target.name] = event.target.value;
+        this.setState({ editState: currentEditState });
+    }
+
+    onEditFormCancel = () => {
+        this.setState(state => ({ editState: state.initialState }));
+    }
+
     render() {
 
-        const { title, author, description, link, percentagecomplete, timespent, notes } = this.state;
+        const { title, author, description, link, percentagecomplete, timespent, notes } = this.state.editState;
         const { id, shelf, updateCourseLocation } = this.props;
         const editCourseButtonDisplay = this.state.editModeIsOn ? "editCourseButton-editModeOn" : "editCourseButton-editModeOff";
-        const editCourseButtonTitle = this.state.editModeIsOn ? "Save Course Info" : "Edit Course Info"
+        const editCourseButtonTitle = this.state.editModeIsOn ? "Save Course Info" : "Edit Course Info";
+        const editCourseButtonType= this.state.editModeIsOn ? "submit" : "button";
 
         //return (
             if (this.state.editModeIsOn) {
@@ -49,37 +78,37 @@ class Course extends React.Component {
                         <form onSubmit={this.onFormSubmit} id="addCourseForm">
                             <div>
                                 <label htmlFor="title">Title:* </label>
-                                <input onChange={this.onFormDataChange} defaultValue={title} type="text" id="title" name="title" minLength="0" maxLength="200" required />
+                                <input onChange={this.onEditFormChange} defaultValue={title} type="text" id="title" name="title" minLength="0" maxLength="200" required />
                             </div>
                             <div>
                                 <label htmlFor="link">Link to course: </label>
-                                <input onChange={this.onFormDataChange} defaultValue={link} type="URL" id="link" name="link" minLength="0" maxLength="500" />
+                                <input onChange={this.onEditFormChange} defaultValue={link} type="URL" id="link" name="link" minLength="0" maxLength="500" />
                             </div>
                             <div>
                                 <label htmlFor="author">Author:* </label>
-                                <input onChange={this.onFormDataChange} defaultValue={author} type="text" id="author" name="author" minLength="0" maxLength="200" required />
+                                <input onChange={this.onEditFormChange} defaultValue={author} type="text" id="author" name="author" minLength="0" maxLength="200" required />
                             </div>
                             <div>
                                 <label htmlFor="description">Description: </label>
-                                <textarea onChange={this.onFormDataChange} defaultValue={description} id="description" name="description" minLength="0" maxLength="1000" ></textarea>
+                                <textarea onChange={this.onEditFormChange} defaultValue={description} id="description" name="description" minLength="0" maxLength="1000" ></textarea>
                             </div>
                             <div>
                                 <label htmlFor="percentagecomplete">Percentage Complete:* </label>
-                                <input onChange={this.onFormDataChange} defaultValue={percentagecomplete} type="number" min="0" max="100" id="percentagecomplete" name="percentagecomplete" required />
+                                <input onChange={this.onEditFormChange} defaultValue={percentagecomplete} type="number" min="0" max="100" id="percentagecomplete" name="percentagecomplete" required />
                             </div>
                             <div>
                                 <label htmlFor="timespent">Time Spent:* </label>
-                                <input onChange={this.onFormDataChange} defaultValue={timespent} type="number" min="0" id="timespent" name="timespent" required />
+                                <input onChange={this.onEditFormChange} defaultValue={timespent} type="number" min="0" id="timespent" name="timespent" required />
                             </div>
                             <div>
                                 <label htmlFor="notes">Notes: </label>
-                                <textarea onChange={this.onFormDataChange} defaultValue={notes} id="notes" name="notes" minLength="0" maxLength="10000" ></textarea>
+                                <textarea onChange={this.onEditFormChange} defaultValue={notes} id="notes" name="notes" minLength="0" maxLength="10000" ></textarea>
                             </div>
                         </form>
-                        <div className={`editCourseButton ${editCourseButtonDisplay}`} title={editCourseButtonTitle} onClick={this.updateEditButton}>
-                        </div>
-                        <div className="cancelEditCourseButton" title="Cancel Course Editing" onClick={this.updateEditButton}>
-                        </div>
+                        <button className={`editCourseButton ${editCourseButtonDisplay}`} title={editCourseButtonTitle} type={editCourseButtonType} onClick={this.updateEditButton}>
+                        </button>
+                        <button className="cancelEditCourseButton" title="Cancel Course Editing" onClick={ () => {this.updateEditButton(); this.onEditFormCancel();}}>
+                        </button>
                         <div className="courseShelfChanger" title="Edit Course Shelf">
                             <select value={shelf} onChange={(event) => updateCourseLocation(id, event.target.value)}>
                                 <option value="move" disabled>Move to...</option>
@@ -100,8 +129,8 @@ class Course extends React.Component {
                         <p>Percentage complete: {percentagecomplete}</p>
                         <p>Time Spent: {timespent}</p>
                         <p>Notes: {(notes === null ? `No notes here!` : this.htmlDecode(notes))}</p>
-                        <div className={`editCourseButton ${editCourseButtonDisplay}`} title={editCourseButtonTitle} onClick={this.updateEditButton}>
-                        </div>
+                        <button className={`editCourseButton ${editCourseButtonDisplay}`} title={editCourseButtonTitle} type={editCourseButtonType} onClick={this.updateEditButton}>
+                        </button>
                         <div className="courseShelfChanger" title="Edit Course Shelf">
                             <select value={shelf} onChange={(event) => updateCourseLocation(id, event.target.value)}>
                                 <option value="move" disabled>Move to...</option>

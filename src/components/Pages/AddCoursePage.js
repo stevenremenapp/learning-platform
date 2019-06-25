@@ -79,7 +79,7 @@ class AddCoursePage extends React.Component {
                 console.log(response.status);
                 this.handlePostResponse(response, json);
             })
-        })             
+        })
     }
 
     handlePostResponse = (response, json) => {
@@ -92,7 +92,7 @@ class AddCoursePage extends React.Component {
     }
 
     postSuccess = () => {
-        this.setState({ 
+        this.setState({
             formState: initialFormState,
             snackbarOpen: true,
             snackbarMessage: 'Class successfully added!',

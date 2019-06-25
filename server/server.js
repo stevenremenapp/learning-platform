@@ -23,10 +23,6 @@ const db = knex({
     }
 });
 
-// db.select('*').from('courses').then(data => {
-//     console.log(data);
-// });
-
 app.use(bodyParser.json());
 app.use(cors());
 app.use(express.static(`${__dirname}/../build`));
@@ -34,8 +30,7 @@ app.use(express.static(`${__dirname}/../build`));
 app.get('/api/v1/courses', (req, res) => {
     returnAllCourses(req, res);
 });
-
-app.post('/api/v1/editshelf', (req, res) => {
+app.put('/api/v1/editshelf', (req, res) => {
     console.log(req.body);
     // Update the item in the course database
     db('courses').select()
@@ -50,6 +45,15 @@ app.post('/api/v1/editshelf', (req, res) => {
             res.json(course);
         });
 })
+
+// COMMON PRACTICE IS:
+// app.get('/api/v1/courses/)
+// app.post('/api/v1/courses/)
+// app.put('/api/v1/courses)
+// etc. so that all the types of requests on courses are similarly named similarly findable
+
+app.put('/api/v1/courses/:id', [])
+
 
 app.post('/api/v1/addcourse', [
     // Validate and sanitize with express-validator

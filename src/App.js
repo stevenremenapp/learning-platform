@@ -35,7 +35,7 @@ class App extends Component {
     console.log(shelf);
     // Post change to backend
     fetch(editShelfAPI, {
-      method: 'POST',
+      method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         id: course,

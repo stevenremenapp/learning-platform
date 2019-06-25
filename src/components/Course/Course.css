@@ -59,6 +59,7 @@
     right: 32px;
     width: 40px;
     height: 40px;
+    border: none;
     border-radius: 50%;
     box-shadow: 0 3px 6px rgba(0,0,0,.20), 0 3px 6px rgba(0,0,0,.3);
     transition: box-shadow 0.2s;
@@ -91,6 +92,7 @@
     right: 78px;
     width: 40px;
     height: 40px;
+    border: none;
     border-radius: 50%;
     box-shadow: 0 3px 6px rgba(0,0,0,.20), 0 3px 6px rgba(0,0,0,.3);
     transition: box-shadow 0.2s;
