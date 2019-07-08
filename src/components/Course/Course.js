@@ -98,6 +98,9 @@ class Course extends React.Component {
                     this.handlePutResponse(response, json);
                 })
             })
+        } else {
+            this.updateEditMode();
+            this.resetEditForm();
         }
     }
 
@@ -143,13 +146,13 @@ class Course extends React.Component {
                             </div>
                             <div>
                                 <label htmlFor="link">Link to course: </label>
-                                <input onChange={this.onEditFormChange} defaultValue={this.htmlDecode(link)} type="text" id="link" name="link" minLength="0" maxLength="500" />
+                                <input onChange={this.onEditFormChange} defaultValue={this.htmlDecode(link)} type="url" id="link" name="link" minLength="0" maxLength="500" />
                                 {/* If error, show: */}
                                 {this.state.putErrors.filter(error => error.param === "link").length >= 1 ? <ErrorsOnCourseEdit errors={this.state.putErrors.filter(error => error.param === "link")} /> : null}
                             </div>
                             <div>
                                 <label htmlFor="author">Author:* </label>
-                                <input onChange={this.onEditFormChange} defaultValue={this.htmlDecode(author)} type="text" id="author" name="author" minLength="0" maxLength="300" required />
+                                <input onChange={this.onEditFormChange} defaultValue={this.htmlDecode(author)} type="text" id="author" name="author" minLength="0" maxLength="200" required />
                                 {/* If error, show: */}
                                 {this.state.putErrors.filter(error => error.param === "author").length >= 1 ? <ErrorsOnCourseEdit errors={this.state.putErrors.filter(error => error.param === "author")} /> : null}
                             </div>
@@ -161,7 +164,7 @@ class Course extends React.Component {
                             </div>
                             <div>
                                 <label htmlFor="percentagecomplete">Percentage Complete:* </label>
-                                <input onChange={this.onEditFormChange} type="number" defaultValue={percentagecomplete} min="0" max="1000" id="percentagecomplete" name="percentagecomplete" required />
+                                <input onChange={this.onEditFormChange} type="number" defaultValue={percentagecomplete} min="0" max="100" id="percentagecomplete" name="percentagecomplete" required />
                                 {/* If error, show: */}
                                 {this.state.putErrors.filter(error => error.param === "percentagecomplete").length >= 1 ? <ErrorsOnCourseEdit errors={this.state.putErrors.filter(error => error.param === "percentagecomplete")} /> : null}
                             </div>
@@ -209,7 +212,7 @@ class Course extends React.Component {
                         <p>Author: {this.htmlDecode(author)}</p>
                         <p>Description: {this.htmlDecode(description)}</p>
                         <p>Percentage complete: {percentagecomplete}</p>
-                        <p>Time Spent: {timespent}</p>
+                        <p>Time Spent: {timespent} {timespent === 1 ? "hour" : "hours"}</p>
                         <p>Notes: {(notes === null ? `No notes here!` : this.htmlDecode(notes))}</p>
                         <button className="editCourseButton editCourseButton-editModeOff" title="Edit Course Info" type="button" onClick={this.updateEditMode}>
                         </button>
