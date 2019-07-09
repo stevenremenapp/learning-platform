@@ -184,7 +184,7 @@ class AddCoursePage extends React.Component {
                             <textarea onChange={this.onFormDataChange} id="notes" name="notes" minLength="0" maxLength="10000" placeholder="Enter course notes here"></textarea>
                         </div>
                         <div className="submitCourse">
-                            <button type="submit">Add course!</button>
+                            <button type="submit"><span className="buttonText">Add course!</span><span className="buttonCheck"></span></button>
                         </div>
                     </form>
                 </div>

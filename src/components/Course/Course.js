@@ -208,7 +208,7 @@ class Course extends React.Component {
             } else {
                 return (
                     <div className="courseCard">
-                        <a href={this.htmlDecode(link)} rel="noopener noreferrer" target="_blank" className="titleLink"><h3>{this.htmlDecode(title)}</h3></a>
+                        {this.state.initialState.link === "" ? <h3>{this.htmlDecode(title)}</h3> : <a href={this.htmlDecode(link)} rel="noopener noreferrer" target="_blank" className="titleLink"><h3>{this.htmlDecode(title)}</h3></a>}
                         <p>Author: {this.htmlDecode(author)}</p>
                         <p>Description: {this.htmlDecode(description)}</p>
                         <p>Percentage complete: {percentagecomplete}</p>
