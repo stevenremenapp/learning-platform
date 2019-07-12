@@ -8,8 +8,8 @@
     "cors": "^2.8.5",
     "express-validator": "^5.3.1",
     "knex": "^0.17.6",
-    "react": "^16.8.4",
-    "react-dom": "^16.8.4",
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6",
     "react-router-dom": "^4.3.1",
     "react-scripts": "2.1.8"
   },
@@ -32,5 +32,8 @@
     "not dead",
     "not ie <= 11",
     "not op_mini all"
-  ]
+  ],
+  "devDependencies": {
+    "lodash": "^4.17.14"
+  }
 }
