@@ -67,37 +67,70 @@ class App extends Component {
         return (
           <div className="App">
             <div className="shelf">
-              <h2>Currently Taking:</h2> {courses.filter(course => course.shelf === "currentlyTaking").map((course) => {
-                return (
-                  <Course
-                    key={course.id}
-                    {...course}
-                    updateCourseLocation={this.updateCourseLocation}
-                  />
-                )
-              })}
+              <h2>Currently Taking:</h2>
+              {
+                courses.filter(course => course.shelf === "currentlyTaking").length > 0 ?
+                <div>
+                {courses.filter(course => course.shelf === "currentlyTaking").map((course) => {
+                  return (
+                    <Course
+                      key={course.id}
+                      {...course}
+                      updateCourseLocation={this.updateCourseLocation}
+                    />
+                  )
+                })}
+                </div> :
+                <p className="emptyShelfText">
+                  <span role="img" aria-label="Ghost emoji." className="emptyShelfEmoji">👻&nbsp;</span>
+                  Nothing here!
+                  <span role="img" aria-label="Ghost emoji." className="emptyShelfEmoji">&nbsp;👻</span>
+                </p>
+              }
             </div>
             <div className="shelf">
-              <h2>Want to Take:</h2> {courses.filter(course => course.shelf === "wantToTake").map((course) => {
-                return (
-                  <Course
-                    key={course.id}
-                    {...course}
-                    updateCourseLocation={this.updateCourseLocation}
-                  />
-                )
-              })}
+              <h2>Want to Take:</h2>
+              {
+                courses.filter(course => course.shelf === "wantToTake").length > 0 ?
+                <div>
+                {courses.filter(course => course.shelf === "wantToTake").map((course) => {
+                  return (
+                    <Course
+                      key={course.id}
+                      {...course}
+                      updateCourseLocation={this.updateCourseLocation}
+                    />
+                  )
+                })}
+                </div> :
+                <p className="emptyShelfText">
+                  <span role="img" aria-label="Ghost emoji." className="emptyShelfEmoji">👻&nbsp;</span>
+                  Nothing here!
+                  <span role="img" aria-label="Ghost emoji." className="emptyShelfEmoji">&nbsp;👻</span>
+                </p>
+              }
             </div>
             <div className="shelf">
-              <h2>Completed:</h2> {courses.filter(course => course.shelf === "completed").map((course) => {
-                return (
-                  <Course
-                    key={course.id}
-                    {...course}
-                    updateCourseLocation={this.updateCourseLocation}
-                  />
-                )
-              })}
+            <h2>Completed:</h2>
+              {
+                courses.filter(course => course.shelf === "completed").length > 0 ?
+                <div>
+                {courses.filter(course => course.shelf === "completed").map((course) => {
+                  return (
+                    <Course
+                      key={course.id}
+                      {...course}
+                      updateCourseLocation={this.updateCourseLocation}
+                    />
+                  )
+                })}
+                </div> :
+                <p className="emptyShelfText">
+                  <span role="img" aria-label="Ghost emoji." className="emptyShelfEmoji">👻&nbsp;</span>
+                  Nothing here!
+                  <span role="img" aria-label="Ghost emoji." className="emptyShelfEmoji">&nbsp;👻</span>
+                </p>
+              }
             </div>
             <div className="addCourseIcon" title="Add a Course">
               <Link to="/addcourse">Add a Course</Link>

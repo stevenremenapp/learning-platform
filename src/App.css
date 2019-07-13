@@ -9,6 +9,32 @@
   margin: 0 auto;
 }
 
+.emptyShelfText {
+  max-width: 900px;
+  margin: 20px auto;
+}
+
+@keyframes ghostMovement {
+  0% {
+    transform: translateY(0);
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0,4));
+  }
+  50% {
+    transform: translateY(-8px);
+    filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.4));
+  }
+  100% {
+    transform: translateY(0);
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0,4));
+  }
+}
+
+.emptyShelfEmoji {
+  display: inline-block;
+  font-size: 40px;
+  animation: 2s infinite ghostMovement;
+}
+
 .addCourseIcon {
   position: fixed;
   bottom: 20px;
