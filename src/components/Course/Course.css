@@ -16,11 +16,11 @@
     margin-bottom: 0;
 }
 
-#addCourseForm {
+.editCourseForm {
     padding-bottom: 20px;
 }
 
-#addCourseForm label {
+.editCourseForm label {
     text-transform: uppercase;
     font-size: 12px;
     font-weight: bold;

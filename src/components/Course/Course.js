@@ -137,45 +137,45 @@ class Course extends React.Component {
             if (this.state.editModeIsOn) {
                 return (
                     <div className="courseCard">
-                        <form onSubmit={this.submitEditForm}>
+                        <form onSubmit={this.submitEditForm} className="editCourseForm">
                             <div>
-                                <label htmlFor="title">Title:* </label>
+                                <label htmlFor="title">Title:</label>
                                 <input onChange={this.onEditFormChange} defaultValue={this.htmlDecode(title)} type="text" id="title" name="title" minLength="0" maxLength="200" required />
                                 {/* If error, show: */}
                                 {this.state.putErrors.filter(error => error.param === "title").length >= 1 ? <ErrorsOnCourseEdit errors={this.state.putErrors.filter(error => error.param === "title")} /> : null}
                             </div>
                             <div>
-                                <label htmlFor="link">Link to course: </label>
-                                <input onChange={this.onEditFormChange} defaultValue={this.htmlDecode(link)} type="url" id="link" name="link" minLength="0" maxLength="500" />
+                                <label htmlFor="link">Link to course:</label>
+                                <input onChange={this.onEditFormChange} defaultValue={link} type="url" id="link" name="link" minLength="0" maxLength="500" />
                                 {/* If error, show: */}
                                 {this.state.putErrors.filter(error => error.param === "link").length >= 1 ? <ErrorsOnCourseEdit errors={this.state.putErrors.filter(error => error.param === "link")} /> : null}
                             </div>
                             <div>
-                                <label htmlFor="author">Author:* </label>
+                                <label htmlFor="author">Author:</label>
                                 <input onChange={this.onEditFormChange} defaultValue={this.htmlDecode(author)} type="text" id="author" name="author" minLength="0" maxLength="200" required />
                                 {/* If error, show: */}
                                 {this.state.putErrors.filter(error => error.param === "author").length >= 1 ? <ErrorsOnCourseEdit errors={this.state.putErrors.filter(error => error.param === "author")} /> : null}
                             </div>
                             <div>
-                                <label htmlFor="description">Description: </label>
+                                <label htmlFor="description">Description:</label>
                                 <textarea onChange={this.onEditFormChange} defaultValue={this.htmlDecode(description)} id="description" name="description" minLength="0" maxLength="1000" ></textarea>
                                 {/* If error, show: */}
                                 {this.state.putErrors.filter(error => error.param === "description").length >= 1 ? <ErrorsOnCourseEdit errors={this.state.putErrors.filter(error => error.param === "description")} /> : null}
                             </div>
                             <div>
-                                <label htmlFor="percentagecomplete">Percentage Complete:* </label>
+                                <label htmlFor="percentagecomplete">Percentage Complete:</label>
                                 <input onChange={this.onEditFormChange} type="number" defaultValue={percentagecomplete} min="0" max="100" id="percentagecomplete" name="percentagecomplete" required />
                                 {/* If error, show: */}
                                 {this.state.putErrors.filter(error => error.param === "percentagecomplete").length >= 1 ? <ErrorsOnCourseEdit errors={this.state.putErrors.filter(error => error.param === "percentagecomplete")} /> : null}
                             </div>
                             <div>
-                                <label htmlFor="timespent">Time Spent:* </label>
+                                <label htmlFor="timespent">Time Spent:</label>
                                 <input onChange={this.onEditFormChange} defaultValue={timespent} type="number" min="0" id="timespent" name="timespent" required />
                                 {/* If error, show: */}
                                 {this.state.putErrors.filter(error => error.param === "timespent").length >= 1 ? <ErrorsOnCourseEdit errors={this.state.putErrors.filter(error => error.param === "timespent")} /> : null}
                             </div>
                             <div>
-                                <label htmlFor="notes">Notes: </label>
+                                <label htmlFor="notes">Notes:</label>
                                 <textarea onChange={this.onEditFormChange} defaultValue={this.htmlDecode(notes)} id="notes" name="notes" minLength="0" maxLength="10000" ></textarea>
                                 {/* If error, show: */}
                                 {this.state.putErrors.filter(error => error.param === "notes").length >= 1 ? <ErrorsOnCourseEdit errors={this.state.putErrors.filter(error => error.param === "notes")} /> : null}

@@ -57,7 +57,7 @@ select {
     width: 100%;
 }
 
-button {
+.buttonSubmit {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -91,7 +91,7 @@ button {
     background-image: url('../../icons/add.svg');
 }
 
-button:hover {
+.buttonSubmit:hover {
     cursor: pointer;
     box-shadow: none;
 }
@@ -101,7 +101,7 @@ button:hover {
     bottom: 20px;
     right: 20px;
   }
-  
+
 .backToHomeIcon a {
     display: block;
     width: 50px;
