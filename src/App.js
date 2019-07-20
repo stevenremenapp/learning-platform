@@ -16,8 +16,14 @@ class App extends Component {
     this.state = {
       isLoaded: false,
       courses: [],
-      stashedCoursesShowing: true,
-      stashedCoursesHeight: {}
+      shelvesShowing: {
+        stashed: true
+      },
+      shelfHeight: {
+        stashed: {}
+      }
+      //stashedCoursesShowing: true,
+      //stashedCoursesHeight: {}
     }
   }
 
@@ -61,20 +67,23 @@ class App extends Component {
 
   componentDidUpdate = () => {
       if (reportHeight) {
-        let courseDiv = this.refs.shelfAccordionWrapper;
-        this.state.stashedCoursesShowing ?
-        this.setState({ stashedCoursesHeight: this.returnWrapperHeight(courseDiv) }) :
-        this.setState({ stashedCoursesHeight: { height: 0 }});
+        let stashedDiv = this.refs.shelfAccordionWrapper;
+        let stashedName = this.refs.shelfAccordionWrapper.getAttribute('name');
+        this.state.shelvesShowing.stashed ?
+        this.setState({ shelfHeight: this.returnWrapperHeight(stashedDiv, stashedName) }) :
+        this.setState({ shelfHeight: { stashed: { height: 0 } } });
       }
       reportHeight = false;
     };
 
-  showOrHideStashedCourses = () => {
+  showOrHideStashedCourses = (e) => {
     reportHeight = true;
-    this.setState({stashedCoursesShowing: !this.state.stashedCoursesShowing});
+    const currentShelvesShowing = {...this.state.shelvesShowing};
+    currentShelvesShowing[e.currentTarget.getAttribute('name')] = !currentShelvesShowing[e.currentTarget.getAttribute('name')];
+    this.setState({shelvesShowing: currentShelvesShowing});
   }
 
-  returnWrapperHeight = (node) => {
+  returnWrapperHeight = (node, name) => {
 
     const containerStyle = {
       display: "inline-block",
@@ -99,7 +108,10 @@ class App extends Component {
 
     reportHeight = true;
 
-    return { height };
+    //return { height };
+    return {
+        [name]: { height }
+    }
   }
 
   returnEmptyShelfHtml = () => {
@@ -182,19 +194,20 @@ class App extends Component {
               }
             </div>
             <div className="shelf">
-              <div className="stashedContainer">
-                <div className="stashedTitleContainer" onClick={this.showOrHideStashedCourses}>
+              <div className="stashedContainer" name="stashed" onClick={this.showOrHideStashedCourses}>
+                <div className="stashedTitleContainer">
                   <h2 className="stashedTitle">Stashed:</h2>
                   <div className="stashedShowHideContainer">
-                    <span className={`stashedShowHideText ${this.state.stashedCoursesShowing ? "hide" : ""}`} id="stashedShowHideText">{this.state.stashedCoursesShowing ? "HIDE" : "SHOW"}</span>
-                    <img src={require('./icons/add-black.svg')} alt="Icon to open or close stashed courses." className={`stashedIcon ${this.state.stashedCoursesShowing ? "hide" : ""}`} />
+                    <span className={`stashedShowHideText ${this.state.shelvesShowing.stashed ? "hide" : ""}`} id="stashedShowHideText">{this.state.shelvesShowing.stashed ? "HIDE" : "SHOW"}</span>
+                    <img src={require('./icons/add-black.svg')} alt="Icon to open or close stashed courses." className={`stashedIcon ${this.state.shelvesShowing.stashed ? "hide" : ""}`} />
                   </div>
                 </div>
               </div>
               <div
                 ref="shelfAccordionWrapper"
                 className="shelfAccordionWrapper"
-                style={this.state.stashedCoursesHeight}
+                name="stashed"
+                style={this.state.shelfHeight.stashed}
                 >
                 {
                   courses.filter(course => course.shelf === "none").length > 0 ?
