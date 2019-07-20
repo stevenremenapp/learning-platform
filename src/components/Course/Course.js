@@ -43,7 +43,7 @@ class Course extends React.Component {
     }
 
     updateEditMode = () => {
-        this.setState( state => ({editModeIsOn: !state.editModeIsOn}));
+        this.setState({editModeIsOn: !this.state.editModeIsOn});
     }
 
     onEditFormChange = (event) => {

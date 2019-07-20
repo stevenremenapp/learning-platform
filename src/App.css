@@ -9,6 +9,58 @@
   margin: 0 auto;
 }
 
+.stashed {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.stashedContainer {
+  display: inline-block;
+}
+
+.stashedContainer:hover {
+  cursor: pointer;
+}
+
+.stashedTitle {
+  float: left;
+}
+
+.stashedShowHideContainer {
+  float: right;
+}
+
+.stashedShowHideText {
+  margin-left: 10px;
+}
+
+.stashedShowHideText.hide {
+  position: relative;
+  bottom: 3px;
+}
+
+.stashedIcon {
+  width: 25px;
+  height: 25px;
+  position: relative;
+  bottom: -6px;
+  transition: all 0.3s;
+}
+
+.stashedIcon.hide {
+  transform: rotate(45deg);
+  transform-origin: 50% 50%;
+  bottom: -6px;
+  width: 28px;
+  height: 28px;
+}
+
+.courseAccordionWrapper {
+  /* padding: 0 20px; */
+  overflow: hidden;
+  transition: height 5s;
+}
+
 .emptyShelfText {
   max-width: 900px;
   margin: 20px auto;
@@ -32,7 +84,7 @@
 .emptyShelfEmoji {
   display: inline-block;
   font-size: 40px;
-  animation: 2s infinite ghostMovement;
+  animation: 3s infinite ghostMovement;
 }
 
 .addCourseIcon {
