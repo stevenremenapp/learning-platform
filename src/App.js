@@ -60,6 +60,8 @@ class App extends Component {
         updatedState[indexOfItemToChange] = response[0];
         this.setState({ courses: updatedState });
       });
+      // REPORTHEIGHT = TRUE TRIGGERS CALCULATION OF SHELF HEIGHT SO SHELF IS RESIZED ON COURSE MOVEMENT
+      reportHeight = true;
   }
 
   componentDidUpdate = () => {
@@ -81,11 +83,15 @@ class App extends Component {
       if (reportHeight) {
         // let rect = this.refs.courseAccordionWrapper.getBoundingClientRect();
         // let rectHeight = rect.height;
+
+        let courseDiv = this.refs.courseAccordionWrapper;
+        // console.log(this.returnWrapperHeight(courseDiv));
+
         this.state.stashedCoursesShowing ?
         // this.setState({ stashedCoursesHeight: { height: `${this.refs.courseAccordionWrapper.clientHeight} px` }}) :
-        this.setState({ stashedCoursesHeight: { height: "1259px" }}) :
+        this.setState({ stashedCoursesHeight: this.returnWrapperHeight(courseDiv) }) :
         this.setState({ stashedCoursesHeight: { height: 0 }});
-        
+
         // console.log(rect.height);
         // console.log(this.refs.courseAccordionWrapper);
       }
@@ -96,9 +102,6 @@ class App extends Component {
       //   heightTest = this.refs.courseAccordionWrapper.style.height;
       // }
       // reportHeight = false;
-
-      let courseDiv = this.refs.courseAccordionWrapper;
-      console.log(this.returnWrapperHeight(courseDiv));
 
     };
 
@@ -142,10 +145,12 @@ class App extends Component {
     document.body.appendChild(container);
 
     const height = container.clientHeight;
-    const width = container.clientWidth;
 
     container.parentNode.removeChild(container);
-    return { height, width };
+
+    reportHeight = true;
+
+    return { height };
   }
 
 

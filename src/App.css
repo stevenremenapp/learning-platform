@@ -56,9 +56,10 @@
 }
 
 .courseAccordionWrapper {
-  /* padding: 0 20px; */
+  padding: 0 20px;
   overflow: hidden;
-  transition: height 5s;
+  /* AT FIVE SECOND ANIMATION, HORIZONTAL WHITE LINES SOMETIMES APPEAR ON COURSES, IF YOU ARE SCROLLED TO BOTTOM OF PAGE IT HAPPENS */
+  transition: height 0.8s;
 }
 
 .emptyShelfText {
