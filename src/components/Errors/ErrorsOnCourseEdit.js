@@ -1,5 +1,5 @@
 import React from 'react';
-import './ErrorsOnCourseEdit.css';
+import './ErrorsOnCourseEdit.scss';
 
 class ErrorsOnCourseEdit extends React.Component {
 

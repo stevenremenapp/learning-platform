@@ -1,0 +1,105 @@
+// .App {
+//   padding: 0 20px;
+// }
+
+.shelf h2 {
+  font-weight: bold;
+  text-decoration: underline;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.stashedContainer {
+  max-width: 900px;
+  margin: 0 auto;
+  &:hover {
+    cursor: pointer;
+  }
+  .stashedTitleContainer {
+    display: inline-block;
+    .stashedTitle {
+      float: left;
+    }
+    .stashedShowHideContainer {
+      float: right;
+      .stashedShowHideText {
+        margin-left: 10px;
+        &.hide {
+          position: relative;
+          bottom: 3px;
+        }
+      }
+      .stashedIcon {
+        width: 25px;
+        height: 25px;
+        position: relative;
+        bottom: -6px;
+        transition: all 0.3s;
+        &.hide {
+          transform: rotate(45deg);
+          transform-origin: 50% 50%;
+          bottom: -6px;
+          width: 28px;
+          height: 28px;
+        }
+      }
+    }
+  }
+}
+
+.shelfAccordionWrapper {
+  padding: 0 20px;
+  overflow: hidden;
+  /* AT FIVE SECOND ANIMATION, HORIZONTAL WHITE LINES SOMETIMES APPEAR ON COURSES, IF YOU ARE SCROLLED TO BOTTOM OF PAGE IT HAPPENS */
+  transition: height 0.8s;
+}
+
+.emptyShelfText {
+  max-width: 900px;
+  margin: 20px auto;
+}
+
+@keyframes ghostMovement {
+  0% {
+    transform: translateY(0);
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.4));
+  }
+  50% {
+    transform: translateY(-8px);
+    filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.4));
+  }
+  100% {
+    transform: translateY(0);
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.4));
+  }
+}
+
+.emptyShelfEmoji {
+  display: inline-block;
+  font-size: 40px;
+  animation: 3s infinite ghostMovement;
+}
+
+.addCourseIcon {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  a {
+    display: block;
+    width: 50px;
+    height: 50px;
+    background: navy;
+    background-image: url('./icons/add.svg');
+    background-repeat: none;
+    background-position: center;
+    background-size: 45px;
+    border-radius: 50%;
+    box-shadow: 0 3px 6px rgba(0,0,0,.20), 0 3px 6px rgba(0,0,0,.3);
+    transition: box-shadow 0.2s;
+    font-size: 0;
+    &:hover {
+      box-shadow: none;
+      cursor: pointer;
+    }
+  }
+}

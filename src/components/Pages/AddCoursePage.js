@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import './AddCoursePage.css';
+import './AddCoursePage.scss';
 import Errors from '../Errors/Errors.js'
 import CloseIcon from '@material-ui/icons/Close';
 import IconButton from '@material-ui/core/IconButton';

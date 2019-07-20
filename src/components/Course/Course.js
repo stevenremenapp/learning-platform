@@ -1,5 +1,5 @@
 import React from 'react';
-import './Course.css';
+import './Course.scss';
 import ErrorsOnCourseEdit from '../Errors/ErrorsOnCourseEdit.js'
 // import Input from '@material-ui/core/Input';
 // import OutlinedInput from '@material-ui/core/OutlinedInput';
@@ -199,7 +199,7 @@ class Course extends React.Component {
                                     <option value="currentlyTaking">Currently Taking</option>
                                     <option value="wantToTake">Want to Take</option>
                                     <option value="completed">Completed</option>
-                                    <option value="none">None</option>
+                                    <option value="none">Stash</option>
                                 </select>
                             </div>
                         </form>
@@ -222,7 +222,7 @@ class Course extends React.Component {
                                 <option value="currentlyTaking">Currently Taking</option>
                                 <option value="wantToTake">Want to Take</option>
                                 <option value="completed">Completed</option>
-                                <option value="none">None</option>
+                                <option value="none">Stash</option>
                             </select>
                         </div>
                     </div>

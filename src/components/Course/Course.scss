@@ -12,18 +12,19 @@
     display: inline-block;
 }
 
-.titleLink h3 {
-    margin-bottom: 0;
+.titleLink {
+    h3 {
+        margin-bottom: 0;
+    }
 }
 
 .editCourseForm {
     padding-bottom: 20px;
-}
-
-.editCourseForm label {
-    text-transform: uppercase;
-    font-size: 12px;
-    font-weight: bold;
+    label {
+        text-transform: uppercase;
+        font-size: 12px;
+        font-weight: bold;
+    }
 }
 
 .courseShelfChanger {
@@ -40,17 +41,15 @@
     background-size: 30px;
     box-shadow: 0 3px 6px rgba(0,0,0,.20), 0 3px 6px rgba(0,0,0,.3);
     transition: box-shadow 0.2s;
-}
-
-.courseShelfChanger:hover {
-    box-shadow: none;
-}
-
-.courseShelfChanger select {
-    width: 100%;
-    height: 100%;
-    opacity: 0;
-    cursor: pointer;
+    &:hover {
+        box-shadow: none;
+    }
+    select {
+        width: 100%;
+        height: 100%;
+        opacity: 0;
+        cursor: pointer;
+    }
 }
 
 .editCourseButton {
@@ -63,11 +62,10 @@
     border-radius: 50%;
     box-shadow: 0 3px 6px rgba(0,0,0,.20), 0 3px 6px rgba(0,0,0,.3);
     transition: box-shadow 0.2s;
-}
-
-.editCourseButton:hover {
-    cursor: pointer;
-    box-shadow: none;
+    &:hover {
+        cursor: pointer;
+        box-shadow: none;
+    }
 }
 
 .editCourseButton-editModeOff {
@@ -101,9 +99,8 @@
     background-position: center;
     background-size: 16px;
     background-image: url('../../icons/cancel-course-edit.svg');
-}
-
-.cancelEditCourseButton:hover {
-    cursor: pointer;
-    box-shadow: none;
+    &:hover {
+        cursor: pointer;
+        box-shadow: none;
+    }
 }

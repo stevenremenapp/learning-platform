@@ -24,10 +24,9 @@
     background-position: center;
     background-size: 8px;
     background-image: url('../../icons/cancel-course-edit.svg');
-}
-
-.closeErrorNotification:hover {
-    box-shadow: none;
+    &:hover {
+        box-shadow: none;
+    }
 }
 
 .errorOnCourseEditMessage {

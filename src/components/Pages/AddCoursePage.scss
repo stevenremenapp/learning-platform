@@ -30,10 +30,9 @@ h1 {
 form {
     margin: 0 auto;
     width: 100%;
-}
-
-form div + div {
-    margin-top: 1em;
+    div + div {
+        margin-top: 1em;
+    }
 }
 
 label {
@@ -74,6 +73,10 @@ select {
     background: green;
     color: #fff;
     font-size: 16px;
+    &:hover {
+        cursor: pointer;
+        box-shadow: none;
+    }
 }
 
 .buttonText {
@@ -91,33 +94,26 @@ select {
     background-image: url('../../icons/add.svg');
 }
 
-.buttonSubmit:hover {
-    cursor: pointer;
-    box-shadow: none;
-}
-
 .backToHomeIcon {
     position: fixed;
     bottom: 20px;
     right: 20px;
+    a {
+        display: block;
+        width: 50px;
+        height: 50px;
+        background: navy;
+        background-image: url('../../icons/arrow-back.svg');
+        background-repeat: none;
+        background-position: center;
+        background-size: 45px;
+        border-radius: 50%;
+        box-shadow: 0 3px 6px rgba(0,0,0,.20), 0 3px 6px rgba(0,0,0,.3);
+        transition: box-shadow 0.2s;
+        font-size: 0;
+        &:hover {
+            box-shadow: none;
+            cursor: pointer;
+        }
+    }
   }
-
-.backToHomeIcon a {
-    display: block;
-    width: 50px;
-    height: 50px;
-    background: navy;
-    background-image: url('../../icons/arrow-back.svg');
-    background-repeat: none;
-    background-position: center;
-    background-size: 45px;
-    border-radius: 50%;
-    box-shadow: 0 3px 6px rgba(0,0,0,.20), 0 3px 6px rgba(0,0,0,.3);
-    transition: box-shadow 0.2s;
-    font-size: 0;
-}
-
-.backToHomeIcon a:hover {
-    box-shadow: none;
-    cursor: pointer;
-}
