@@ -8,13 +8,6 @@ const courseAPI = process.env.REACT_APP_COURSE_API;
 console.log(courseAPI);
 const editShelfAPI = process.env.REACT_APP_EDIT_COURSE_API;
 
-const wrapperStyle = {
-  display: "inline-block",
-  position: "absolute",
-  visibility: "hidden",
-  zIndex: -1,
-};
-
 // let heightTest;
 let reportHeight = true;
 
@@ -90,7 +83,7 @@ class App extends Component {
         // let rectHeight = rect.height;
         this.state.stashedCoursesShowing ?
         // this.setState({ stashedCoursesHeight: { height: `${this.refs.courseAccordionWrapper.clientHeight} px` }}) :
-        this.setState({ stashedCoursesHeight: { height: "1500px" }}) :
+        this.setState({ stashedCoursesHeight: { height: "1259px" }}) :
         this.setState({ stashedCoursesHeight: { height: 0 }});
         
         // console.log(rect.height);
@@ -103,6 +96,10 @@ class App extends Component {
       //   heightTest = this.refs.courseAccordionWrapper.style.height;
       // }
       // reportHeight = false;
+
+      let courseDiv = this.refs.courseAccordionWrapper;
+      console.log(this.returnWrapperHeight(courseDiv));
+
     };
 
   showOrHideStashedCourses = () => {
@@ -120,13 +117,35 @@ class App extends Component {
     // });
   }
 
-  returnWrapperHeight = () => {
-    let height = { maxHeight: "1500px" };
-    // let height = { height: heightTest };
-    let noHeight = { maxHeight: 0 };
-    return this.state.stashedCoursesShowing
-    ? height
-    : noHeight
+  returnWrapperHeight = (node) => {
+    // let height = { maxHeight: "1500px" };
+    // let noHeight = { maxHeight: 0 };
+    // return this.state.stashedCoursesShowing
+    // ? height
+    // : noHeight
+
+    const containerStyle = {
+      display: "inline-block",
+      position: "absolute",
+      visibility: "hidden",
+      zIndex: -1,
+    };
+
+    const container = document.createElement("div");
+    container.style = containerStyle;
+
+    const clonedNode = node.cloneNode(true);
+    clonedNode.style = { height: "auto" };
+
+    container.appendChild(clonedNode);
+
+    document.body.appendChild(container);
+
+    const height = container.clientHeight;
+    const width = container.clientWidth;
+
+    container.parentNode.removeChild(container);
+    return { height, width };
   }
 
 
