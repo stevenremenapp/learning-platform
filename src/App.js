@@ -70,48 +70,6 @@ class App extends Component {
   }
 
   componentDidUpdate = () => {
-      /*if (reportHeight) {
-        let stashedDiv = this.refs.stashedShelfAccordionWrapper;
-        let stashedName = this.refs.stashedShelfAccordionWrapper.getAttribute('name');
-        let completedDiv = this.refs.completedShelfAccordionWrapper;
-        let completedName = this.refs.completedShelfAccordionWrapper.getAttribute('name');
-
-        let stashedHeight = this.returnWrapperHeight(stashedDiv);
-        let completedHeight = this.returnWrapperHeight(completedDiv);*/
-
-        // switch (true) {
-        //   case this.state.shelvesShowing.completed:
-        //     this.setState({ shelfHeight: {[stashedName]: stashedHeight, [completedName]: completedHeight} });
-        //     break;
-          
-        // }
-
-        // LOOP THRU STATE AND SET HEIGHT TO 0 IF FALSE???
-
-        // for (let i = 0; i < this.state.shelvesShowing.length; i++) {
-          // if (this.state.shelvesShowing.completed) {
-          //   this.setState({ shelfHeight: {[stashedName]: stashedHeight, [completedName]: completedHeight} });
-          // } else if (this.state.shelvesShowing.stashed) {
-          //   this.setState({ shelfHeight: {[stashedName]: stashedHeight, [completedName]: completedHeight} });
-          // } else if (!this.state.shelvesShowing.completed) {
-          //   this.setState({ shelfHeight: { [stashedName]: stashedHeight, [completedName]: { height: 0 } } });
-          // } else {
-          //   this.setState({ shelfHeight: { [stashedName]: { height: 0 }, [completedName]: completedDiv } });
-          // }
-        // }
-        /*
-        this.state.shelvesShowing.completed ?
-        this.setState({ shelfHeight: {[stashedName]: stashedHeight, [completedName]: completedHeight} }) :
-        !this.state.shelvesShowing.completed ?
-        this.setState({ shelfHeight: { [stashedName]: stashedHeight, [completedName]: { height: 0 } } }) :
-        this.state.shelvesShowing.stashed ?
-        this.setState({ shelfHeight: {[stashedName]: stashedHeight, [completedName]: completedHeight} }) :
-        !this.state.shelvesShowing.stashed ?
-        this.setState({ shelfHeight: { [stashedName]: { height: 0 }, [completedName]: completedDiv } }) :
-        console.log("DONE");
-      }
-      reportHeight = false;*/
-
       this.setShelfHeights();
     };
 
@@ -146,16 +104,6 @@ class App extends Component {
           [currentlyTakingName]: currentlyTakingHeight
         }
       });
-
-      // this.state.shelvesShowing.completed ?
-      // this.setState({ shelfHeight: {[stashedName]: stashedHeight, [completedName]: completedHeight} }) :
-      // !this.state.shelvesShowing.completed ?
-      // this.setState({ shelfHeight: { [stashedName]: stashedHeight, [completedName]: { height: 0 } } }) :
-      // this.state.shelvesShowing.stashed ?
-      // this.setState({ shelfHeight: {[stashedName]: stashedHeight, [completedName]: completedHeight} }) :
-      // !this.state.shelvesShowing.stashed ?
-      // this.setState({ shelfHeight: { [stashedName]: { height: 0 }, [completedName]: completedDiv } }) :
-      console.log("DONE");
     }
 
     reportHeight = false;
@@ -186,26 +134,8 @@ class App extends Component {
 
     reportHeight = true;
 
-    // return {
-    //     [name]: { height }
-    // }
     return { height: height };
   }
-
-  // returnAllShelfHeightsObject = () => {
-  //   let stashedDiv = this.refs.stashedShelfAccordionWrapper;
-  //   let stashedName = this.refs.stashedShelfAccordionWrapper.getAttribute('name');
-  //   let completedDiv = this.refs.completedShelfAccordionWrapper;
-  //   let completedName = this.refs.completedShelfAccordionWrapper.getAttribute('name');
-  //   let stashed =  this.returnWrapperHeight(stashedDiv, stashedName);
-  //   let completed = this.returnWrapperHeight(completedDiv, completedName);
-  //   let allShelfHeightsObject = {
-  //     stashed,
-  //     completed
-  //   }
-  //   console.log(allShelfHeightsObject);
-  //   return allShelfHeightsObject;
-  // }
 
   returnEmptyShelfHtml = () => {
     return (
