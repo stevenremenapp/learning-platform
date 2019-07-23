@@ -9,27 +9,27 @@
   margin: 0 auto;
 }
 
-.stashedContainer {
+.shelfContainer {
   max-width: 900px;
   margin: 0 auto;
   &:hover {
     cursor: pointer;
   }
-  .stashedTitleContainer {
+  .shelfTitleContainer {
     display: inline-block;
-    .stashedTitle {
+    .shelfTitle {
       float: left;
     }
-    .stashedShowHideContainer {
+    .shelfShowHideContainer {
       float: right;
-      .stashedShowHideText {
+      .shelfShowHideText {
         margin-left: 10px;
         &.hide {
           position: relative;
           bottom: 3px;
         }
       }
-      .stashedIcon {
+      .shelfIcon {
         width: 25px;
         height: 25px;
         position: relative;
