@@ -1,14 +1,6 @@
 import React from 'react';
 import './Course.scss';
 import ErrorsOnCourseEdit from '../Errors/ErrorsOnCourseEdit.js'
-// import Input from '@material-ui/core/Input';
-// import OutlinedInput from '@material-ui/core/OutlinedInput';
-// import FilledInput from '@material-ui/core/FilledInput';
-// import InputLabel from '@material-ui/core/InputLabel';
-// import MenuItem from '@material-ui/core/MenuItem';
-// import FormHelperText from '@material-ui/core/FormHelperText';
-// import FormControl from '@material-ui/core/FormControl';
-// import Select from '@material-ui/core/Select';
 
 const editCourseAPI = process.env.REACT_APP_EDIT_COURSE_INFO_API;
 
@@ -214,7 +206,12 @@ class Course extends React.Component {
                         <p>Percentage complete: {percentagecomplete}</p>
                         <p>Time Spent: {timespent} {timespent === 1 ? "hour" : "hours"}</p>
                         <p>Notes: {(notes === null ? `No notes here!` : this.htmlDecode(notes))}</p>
-                        <button className="editCourseButton editCourseButton-editModeOff" title="Edit Course Info" type="button" onClick={this.updateEditMode}>
+                        <button className="editCourseButton editCourseButton-editModeOff" title="Edit Course Info" type="button"
+                        // name={shelf}
+                        onClick={this.updateEditMode}
+                        // onClick={(e) => {this.updateEditMode(); showOrHideShelves(e)}}
+                        // onClick={() => {this.updateEditMode(); setShelfHeights()}}
+                        >
                         </button>
                         <div className="courseShelfChanger" title="Edit Course Shelf">
                             <select value={shelf} onChange={(event) => updateCourseLocation(id, event.target.value)}>

@@ -7,7 +7,7 @@ require('dotenv').load();
 const courseAPI = process.env.REACT_APP_COURSE_API;
 const editShelfAPI = process.env.REACT_APP_EDIT_COURSE_API;
 
-let reportHeight = true;
+let reportHeight = false;
 
 class App extends Component {
 
@@ -20,7 +20,7 @@ class App extends Component {
         currentlyTaking: true,
         wantToTake: true,
         completed: true,
-        stashed: true        
+        stashed: true
       },
       shelfHeight: {
         currentlyTaking: {},
@@ -41,7 +41,14 @@ class App extends Component {
           isLoaded: true,
         });
     });
-}
+  }
+
+  componentDidUpdate = () => {
+    if (reportHeight) {
+      this.setShelfHeights();
+    }
+    reportHeight = false;
+  };
 
   updateCourseLocation = (course, shelf) => {
     console.log(course);
@@ -65,19 +72,17 @@ class App extends Component {
         updatedState[indexOfItemToChange] = response[0];
         this.setState({ courses: updatedState });
       });
-      // REPORTHEIGHT = TRUE TRIGGERS CALCULATION OF SHELF HEIGHT SO SHELF IS RESIZED ON COURSE MOVEMENT
+      // REPORTHEIGHT = TRUE TRIGGERS SHELF ANIMATION
       reportHeight = true;
   }
-
-  componentDidUpdate = () => {
-      this.setShelfHeights();
-    };
 
   showOrHideShelves = (e) => {
     reportHeight = true;
     const currentShelvesShowing = {...this.state.shelvesShowing};
     currentShelvesShowing[e.currentTarget.getAttribute('name')] = !currentShelvesShowing[e.currentTarget.getAttribute('name')];
-    this.setState({shelvesShowing: currentShelvesShowing});
+    this.setState({shelvesShowing: currentShelvesShowing}, () => {
+      this.setShelfHeights();
+    });
   }
 
   setShelfHeights = () => {
@@ -86,6 +91,8 @@ class App extends Component {
       const completedDiv = this.refs.completedShelfAccordionWrapper;
       const wantToTakeDiv = this.refs.wantToTakeShelfAccordionWrapper;
       const currentlyTakingDiv = this.refs.currentlyTakingShelfAccordionWrapper;
+
+      console.log(stashedDiv);
 
       const stashedName = stashedDiv.getAttribute('name');
       const completedName = completedDiv.getAttribute('name');
@@ -106,7 +113,9 @@ class App extends Component {
       });
     }
 
-    reportHeight = false;
+      console.log("DONE");
+      reportHeight = false;
+
   }
 
   returnWrapperHeight = (node) => {
@@ -131,8 +140,6 @@ class App extends Component {
     const height = container.clientHeight;
 
     container.parentNode.removeChild(container);
-
-    reportHeight = true;
 
     return { height: height };
   }
@@ -227,7 +234,10 @@ class App extends Component {
               </div>
             </div>
             <div className="shelf">
-              <div className="shelfContainer" name="completed" onClick={this.showOrHideShelves}>
+              <div className="shelfContainer" name="completed"
+              //COMMENTED OUT TO TEST HEIGHT CHANGE ON EDIT
+              onClick={this.showOrHideShelves}
+              >
                 <div className="shelfTitleContainer">
                   <h2 className="shelfTitle">Completed:</h2>
                   <div className="shelfShowHideContainer">
@@ -251,6 +261,8 @@ class App extends Component {
                             key={course.id}
                             {...course}
                             updateCourseLocation={this.updateCourseLocation}
+                            // showOrHideShelves={this.showOrHideShelves}
+                            //setShelfHeights={this.setShelfHeights}
                           />
                         )
                       })}
@@ -262,7 +274,10 @@ class App extends Component {
               </div>
             </div>
             <div className="shelf">
-              <div className="shelfContainer" name="stashed" onClick={this.showOrHideShelves}>
+              <div className="shelfContainer" name="stashed"
+              // COMMENTED OUT TO TEST EDIT EXPANDING
+              onClick={this.showOrHideShelves}
+              >
                 <div className="shelfTitleContainer">
                   <h2 className="shelfTitle">Stashed:</h2>
                   <div className="shelfShowHideContainer">
@@ -286,6 +301,8 @@ class App extends Component {
                             key={course.id}
                             {...course}
                             updateCourseLocation={this.updateCourseLocation}
+                            // showOrHideShelves={this.showOrHideShelves}
+                            // setShelfHeights={this.setShelfHeights}
                           />
                         )
                       })}
