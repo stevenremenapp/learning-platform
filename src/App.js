@@ -7,7 +7,7 @@ require('dotenv').load();
 const courseAPI = process.env.REACT_APP_COURSE_API;
 const editShelfAPI = process.env.REACT_APP_EDIT_COURSE_API;
 
-let reportHeight = false;
+let reportHeight = true;
 
 class App extends Component {
 
@@ -32,7 +32,9 @@ class App extends Component {
   }
 
   componentDidMount() {
+
     document.title = 'Learning Platform';
+
     fetch(courseAPI)
       .then(response => response.json())
       .then(response => {
@@ -41,6 +43,7 @@ class App extends Component {
           isLoaded: true,
         });
     });
+
   }
 
   componentDidUpdate = () => {
