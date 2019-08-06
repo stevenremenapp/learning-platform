@@ -107,6 +107,7 @@ class Course extends React.Component {
 
     putSuccess = () => {
         this.updateEditMode();
+        this.props.setReportHeightToTrueAndForceUpdate();
         this.setState({
             putErrors: [],
             initialState: this.state.editState
@@ -116,6 +117,7 @@ class Course extends React.Component {
     putError = (errors) => {
         console.log(errors);
         this.resetEditForm();
+        this.props.setReportHeightToTrueAndForceUpdate();
         this.setState({
             putErrors: errors
         })
@@ -124,7 +126,7 @@ class Course extends React.Component {
     render() {
 
         const { title, author, description, link, percentagecomplete, timespent, notes } = this.state.editState;
-        const { id, shelf, updateCourseLocation } = this.props;
+        const { id, shelf, updateCourseLocation, setReportHeightToTrueAndForceUpdate } = this.props;
 
             if (this.state.editModeIsOn) {
                 return (
@@ -182,7 +184,7 @@ class Course extends React.Component {
                                 className="cancelEditCourseButton"
                                 title="Cancel Course Editing"
                                 type="button"
-                                onClick={ () => {this.updateEditMode(); this.resetEditForm();}}
+                                onClick={ () => {this.updateEditMode(); this.resetEditForm(); setReportHeightToTrueAndForceUpdate();}}
                             >
                             </button>
                             <div className="courseShelfChanger" title="Edit Course Shelf">
@@ -207,10 +209,7 @@ class Course extends React.Component {
                         <p>Time Spent: {timespent} {timespent === 1 ? "hour" : "hours"}</p>
                         <p>Notes: {(notes === null ? `No notes here!` : this.htmlDecode(notes))}</p>
                         <button className="editCourseButton editCourseButton-editModeOff" title="Edit Course Info" type="button"
-                        // name={shelf}
-                        onClick={this.updateEditMode}
-                        // onClick={(e) => {this.updateEditMode(); showOrHideShelves(e)}}
-                        // onClick={() => {this.updateEditMode(); setShelfHeights()}}
+                        onClick={() => {this.updateEditMode(); setReportHeightToTrueAndForceUpdate()}}
                         >
                         </button>
                         <div className="courseShelfChanger" title="Edit Course Shelf">

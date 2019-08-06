@@ -50,6 +50,12 @@ class App extends Component {
     reportHeight = false;
   };
 
+  setReportHeightToTrueAndForceUpdate = () => {
+    reportHeight = true;
+    // THIS IS NOT A GREAT IDEA, BUT IT DOES SOLVE MY ANIMATION PROBLEM
+    this.forceUpdate();
+  }
+
   updateCourseLocation = (course, shelf) => {
     console.log(course);
     console.log(shelf);
@@ -80,42 +86,34 @@ class App extends Component {
     reportHeight = true;
     const currentShelvesShowing = {...this.state.shelvesShowing};
     currentShelvesShowing[e.currentTarget.getAttribute('name')] = !currentShelvesShowing[e.currentTarget.getAttribute('name')];
-    this.setState({shelvesShowing: currentShelvesShowing}, () => {
-      this.setShelfHeights();
-    });
+    this.setState({shelvesShowing: currentShelvesShowing});
   }
 
   setShelfHeights = () => {
-    if (reportHeight) {
-      const stashedDiv = this.refs.stashedShelfAccordionWrapper;
-      const completedDiv = this.refs.completedShelfAccordionWrapper;
-      const wantToTakeDiv = this.refs.wantToTakeShelfAccordionWrapper;
-      const currentlyTakingDiv = this.refs.currentlyTakingShelfAccordionWrapper;
+    const stashedDiv = this.refs.stashedShelfAccordionWrapper;
+    const completedDiv = this.refs.completedShelfAccordionWrapper;
+    const wantToTakeDiv = this.refs.wantToTakeShelfAccordionWrapper;
+    const currentlyTakingDiv = this.refs.currentlyTakingShelfAccordionWrapper;
 
-      console.log(stashedDiv);
+    console.log(stashedDiv);
 
-      const stashedName = stashedDiv.getAttribute('name');
-      const completedName = completedDiv.getAttribute('name');
-      const wantToTakeName = wantToTakeDiv.getAttribute('name');
-      const currentlyTakingName = currentlyTakingDiv.getAttribute('name');
+    const stashedName = stashedDiv.getAttribute('name');
+    const completedName = completedDiv.getAttribute('name');
+    const wantToTakeName = wantToTakeDiv.getAttribute('name');
+    const currentlyTakingName = currentlyTakingDiv.getAttribute('name');
 
-      const stashedHeight = this.state.shelvesShowing.stashed ? this.returnWrapperHeight(stashedDiv) : { height: 0 };
-      const completedHeight = this.state.shelvesShowing.completed ? this.returnWrapperHeight(completedDiv) : { height: 0 };
-      const wantToTakeHeight = this.state.shelvesShowing.wantToTake ? this.returnWrapperHeight(wantToTakeDiv) : { height: 0 };
-      const currentlyTakingHeight = this.state.shelvesShowing.currentlyTaking ? this.returnWrapperHeight(currentlyTakingDiv) : { height: 0 };
+    const stashedHeight = this.state.shelvesShowing.stashed ? this.returnWrapperHeight(stashedDiv) : { height: 0 };
+    const completedHeight = this.state.shelvesShowing.completed ? this.returnWrapperHeight(completedDiv) : { height: 0 };
+    const wantToTakeHeight = this.state.shelvesShowing.wantToTake ? this.returnWrapperHeight(wantToTakeDiv) : { height: 0 };
+    const currentlyTakingHeight = this.state.shelvesShowing.currentlyTaking ? this.returnWrapperHeight(currentlyTakingDiv) : { height: 0 };
 
-      this.setState({ shelfHeight:
-        { [stashedName]: stashedHeight,
-          [completedName]: completedHeight,
-          [wantToTakeName]: wantToTakeHeight,
-          [currentlyTakingName]: currentlyTakingHeight
-        }
-      });
-    }
-
-      console.log("DONE");
-      reportHeight = false;
-
+    this.setState({ shelfHeight:
+      { [stashedName]: stashedHeight,
+        [completedName]: completedHeight,
+        [wantToTakeName]: wantToTakeHeight,
+        [currentlyTakingName]: currentlyTakingHeight
+      }
+    });
   }
 
   returnWrapperHeight = (node) => {
@@ -188,6 +186,7 @@ class App extends Component {
                             key={course.id}
                             {...course}
                             updateCourseLocation={this.updateCourseLocation}
+                            setReportHeightToTrueAndForceUpdate={this.setReportHeightToTrueAndForceUpdate}
                           />
                         )
                       })}
@@ -223,6 +222,7 @@ class App extends Component {
                             key={course.id}
                             {...course}
                             updateCourseLocation={this.updateCourseLocation}
+                            setReportHeightToTrueAndForceUpdate={this.setReportHeightToTrueAndForceUpdate}
                           />
                         )
                       })}
@@ -261,8 +261,7 @@ class App extends Component {
                             key={course.id}
                             {...course}
                             updateCourseLocation={this.updateCourseLocation}
-                            // showOrHideShelves={this.showOrHideShelves}
-                            //setShelfHeights={this.setShelfHeights}
+                            setReportHeightToTrueAndForceUpdate={this.setReportHeightToTrueAndForceUpdate}
                           />
                         )
                       })}
@@ -301,8 +300,7 @@ class App extends Component {
                             key={course.id}
                             {...course}
                             updateCourseLocation={this.updateCourseLocation}
-                            // showOrHideShelves={this.showOrHideShelves}
-                            // setShelfHeights={this.setShelfHeights}
+                            setReportHeightToTrueAndForceUpdate={this.setReportHeightToTrueAndForceUpdate}
                           />
                         )
                       })}
